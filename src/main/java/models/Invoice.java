@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class Invoice {
+
     private static int counter;
 
     private final int invoiceId;

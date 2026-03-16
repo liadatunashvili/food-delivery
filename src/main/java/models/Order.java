@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 public class Order {
+
     public enum Status {
         CREATED,
         PAID,
@@ -16,6 +17,9 @@ public class Order {
     private final Customer customer;
     private final Food[] items;
     private final BigDecimal total;
+    private Payment payment;
+    private Invoice invoice;
+    private OrderPlaces deliveryPlace;
     private Status status;
 
     public Order(Customer customer, Food[] items, BigDecimal total) {
@@ -42,12 +46,36 @@ public class Order {
         return total;
     }
 
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public OrderPlaces getDeliveryPlace() {
+        return deliveryPlace;
+    }
+
     public Status getStatus() {
         return status;
     }
 
     public void markPaid() {
         this.status = Status.PAID;
+    }
+
+    public void attachPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    public void attachInvoice(Invoice invoice) {
+        this.invoice = invoice;
+    }
+
+    public void assignDeliveryPlace(OrderPlaces deliveryPlace) {
+        this.deliveryPlace = deliveryPlace;
     }
 
     public void cancel() {

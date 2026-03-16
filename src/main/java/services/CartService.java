@@ -5,6 +5,7 @@ import models.Cart;
 import models.Food;
 
 public class CartService {
+
     private final Cart cart;
 
     public CartService(Cart cart) {
@@ -15,7 +16,7 @@ public class CartService {
         cart.addToCart(food);
     }
 
-    public void removeItem(Food food){
+    public void removeItem(Food food) {
         cart.removeFromCart(food);
     }
 

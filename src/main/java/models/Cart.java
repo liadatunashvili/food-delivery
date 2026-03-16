@@ -1,13 +1,18 @@
 package models;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 
 public class Cart {
+
+    private final Customer owner;
     private Food[] cartItems = new Food[0];
 
-    public Cart() {
+    public Cart(Customer owner) {
+        this.owner = owner;
+    }
 
+    public Customer getOwner() {
+        return owner;
     }
 
     public Food[] getCartItems() {
@@ -18,15 +23,18 @@ public class Cart {
         this.cartItems = Arrays.copyOf(cartItems, cartItems.length);
     }
 
-    public void addToCart(Food food){
+    public void clear() {
+        this.cartItems = new Food[0];
+    }
+
+    public void addToCart(Food food) {
         Food[] next = Arrays.copyOf(cartItems, cartItems.length + 1);
         next[next.length - 1] = food;
         cartItems = next;
     }
 
-
-    public void removeFromCart(Food food){
-        if (cartItems.length == 0){
+    public void removeFromCart(Food food) {
+        if (cartItems.length == 0) {
             System.out.println("EMPTRY CART");
             return;
         }

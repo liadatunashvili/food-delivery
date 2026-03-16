@@ -2,9 +2,9 @@ package models;
 
 import java.math.BigDecimal;
 
-public class Employee extends User{
+public class Employee extends User {
 
-    //this is for delivery person and customer support employee
+    // this is for delivery person and customer support employee
     private BigDecimal salary;
 
     public Employee(String name, String email, String number, String hashedPassword, BigDecimal salary) {

@@ -2,46 +2,63 @@ package services;
 
 import java.math.BigDecimal;
 
-import models.*;
+import models.Customer;
+import models.Food;
+import models.Invoice;
+import models.Order;
+import models.OrderPlaces;
+import models.Payment;
 
 public class OrderService {
+
     private final CartService cartService;
     private final PaymentService paymentService;
-    private DeliveryService deliveryService;
+    private final DeliveryService deliveryService;
 
-    public OrderService(CartService cartService, PaymentService paymentService,DeliveryService deliveryService) {
+    public OrderService(CartService cartService, PaymentService paymentService, DeliveryService deliveryService) {
         this.cartService = cartService;
         this.paymentService = paymentService;
         this.deliveryService = deliveryService;
     }
 
     public Order createOrder(Customer customer) {
-        Food[] items = cartService.viewItems();
+        Food[] items = customer.getCart().getCartItems();
 
-        for(Food item : items){
-            if (item.isExpired()){
+        for (Food item : items) {
+            if (item.isExpired()) {
                 System.out.println("Cart contains expired food removing from cart");
                 cartService.removeItem(item);
             }
         }
         BigDecimal total = cartService.calculateTotal();
-        Order order = new Order(customer, items, total);
+        Order order = new Order(customer, customer.getCart().getCartItems(), total);
         customer.addOrder(order);
+        customer.getCart().clear();
         return order;
     }
 
     public Payment payForOrder(Order order, Payment.Method method) {
-        Payment payment = paymentService.processPayment(order.getTotal(), method);
+        Payment payment = paymentService.processPayment(order, method);
+        order.attachPayment(payment);
         if (payment.isSuccess()) {
             order.markPaid();
         }
         return payment;
     }
 
-    public void finishOrder(Order order, Payment payment){
-        OrderPlaces orderPlaces = new OrderPlaces(order.getCustomer().getDeliveryAddress(), order.getCustomer().getName() + "'s place");
-        deliveryService.assignDelivery(order, null,orderPlaces);
+    public Invoice createInvoice(Order order) {
+        if (order.getPayment() == null) {
+            return null;
+        }
+        Invoice invoice = new Invoice(order, order.getPayment());
+        order.attachInvoice(invoice);
+        order.getCustomer().addInvoice(invoice);
+        return invoice;
+    }
 
-
+    public void finishOrder(Order order) {
+        OrderPlaces orderPlaces = new OrderPlaces(order, order.getCustomer().getDeliveryAddress(), order.getCustomer().getName() + "'s place");
+        order.assignDeliveryPlace(orderPlaces);
+        deliveryService.assignDelivery(order, null, orderPlaces);
     }
 }

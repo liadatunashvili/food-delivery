@@ -6,6 +6,7 @@ import models.Order;
 import models.OrderPlaces;
 
 public class DeliveryService {
+
     private DeliveryPerson[] deliveryPeople = new DeliveryPerson[0];
 
     public DeliveryService(DeliveryPerson[] deliveryPeople) {
@@ -32,6 +33,8 @@ public class DeliveryService {
             System.out.println("No delivery avail " + order.getId());
             return;
         }
+        location.setOrder(order);
+        order.assignDeliveryPlace(location);
         assignee.addOrder(location);
         System.out.println("Order " + order.getId() + " assigned to " + assignee.getName() + " for " + location.getPlaceName());
     }

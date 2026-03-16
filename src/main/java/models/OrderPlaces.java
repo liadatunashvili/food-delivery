@@ -1,8 +1,9 @@
 package models;
 
-
 public class OrderPlaces {
-    private String  orderLocation;
+
+    private Order order;
+    private String orderLocation;
     private String placeName;
     private Address address;
 
@@ -18,6 +19,19 @@ public class OrderPlaces {
         this.orderLocation = address.fullAddress();
     }
 
+    public OrderPlaces(Order order, Address address, String placeName) {
+        this(address, placeName);
+        this.order = order;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
     public String getOrderLocation() {
         return orderLocation;
     }
@@ -31,8 +45,8 @@ public class OrderPlaces {
         return address;
     }
 
-    public void setAddress(String city, String street, String details){
-        this.address = new Address(city,street,details);
+    public void setAddress(String city, String street, String details) {
+        this.address = new Address(city, street, details);
     }
 
     public void setAddress(Address address) {

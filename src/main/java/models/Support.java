@@ -1,23 +1,38 @@
 package models;
 
 public class Support {
+
     public enum Status {
         OPEN,
         CLOSED
     }
 
-    private final String customerName;
+    private final Customer customer;
+    private final Order relatedOrder;
     private final String message;
     private Status status = Status.OPEN;
     private SupportResolution resolution;
 
-    public Support(String customerName, String message) {
-        this.customerName = customerName;
+    public Support(Customer customer, String message) {
+        this(customer, null, message);
+    }
+
+    public Support(Customer customer, Order relatedOrder, String message) {
+        this.customer = customer;
+        this.relatedOrder = relatedOrder;
         this.message = message;
     }
 
     public String getCustomerName() {
-        return customerName;
+        return customer.getName();
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public Order getRelatedOrder() {
+        return relatedOrder;
     }
 
     public String getMessage() {

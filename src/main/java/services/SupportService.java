@@ -1,6 +1,7 @@
 package services;
 
 import models.Customer;
+import models.Order;
 import models.Support;
 import models.SupportResolution;
 
@@ -8,42 +9,44 @@ public class SupportService {
 
     private Support[] tickets = new Support[0];
 
-
     public Support[] getTickets() {
         return this.tickets;
     }
 
     public void makeComplaint(Customer customer, String message) {
+        makeComplaint(customer, null, message);
+    }
 
+    public void makeComplaint(Customer customer, Order relatedOrder, String message) {
         // had to come up with this solution because I had lists :(
-        Support ticket = new Support(customer.getName(), message);
+        Support ticket = new Support(customer, relatedOrder, message);
         Support[] next = new Support[tickets.length + 1];
         System.arraycopy(tickets, 0, next, 0, tickets.length);
         next[next.length - 1] = ticket;
         tickets = next;
+        customer.addSupportTicket(ticket);
         System.out.println("Thank you, support will answer shortly");
     }
 
-    public SupportResolution resolveTicket(int index, String message, String resolvedBy){
+    public SupportResolution resolveTicket(int index, String message, String resolvedBy) {
         if (index < 0 || index >= tickets.length) {
             return null;
         }
         Support ticket = tickets[index];
-        SupportResolution resolution = new SupportResolution(resolvedBy != null?resolvedBy:"support team", message);
+        SupportResolution resolution = new SupportResolution(ticket, resolvedBy != null ? resolvedBy : "support team", message);
         ticket.close(resolution);
         tickets = removeElement(tickets, index);
         System.out.println("Ticket was resolved successfully (hopefully): \n" + "REASON:" + resolution.getMessage());
         return resolution;
     }
 
-    public SupportResolution resolveTicket(Support ticket, String message){
-        SupportResolution resolution = new SupportResolution("Support team", message);
+    public SupportResolution resolveTicket(Support ticket, String message) {
+        SupportResolution resolution = new SupportResolution(ticket, "Support team", message);
         ticket.close(resolution);
         tickets = removeElement(tickets, ticket);
         System.out.println("Ticket was resolved successfully (hopefully): \n" + "REASON:" + resolution.getMessage());
         return resolution;
     }
-
 
     //same with these private methods, had with lists now have like this :(
     private Support[] removeElement(Support[] array, int index) {

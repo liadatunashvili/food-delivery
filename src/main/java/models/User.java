@@ -1,6 +1,7 @@
 package models;
 
 public class User {
+
     private String name;
     private String email;
     private String number;
@@ -13,9 +14,7 @@ public class User {
         this.hashedPassword = this.hashMethod(hashedPassword);
     }
 
-
-    private String hashMethod(String password){
-
+    private String hashMethod(String password) {
         return new StringBuilder(password).reverse().toString();
     }
 
