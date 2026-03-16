@@ -50,11 +50,15 @@ public class Main {
 
         // pay order
         Payment payment = orderService.payForOrder(order, Payment.Method.CARD);
-        Invoice invoice = orderService.createInvoice(order);
-
         System.out.println("GOOD PAYMENT: " + payment.isSuccess() + "  :  " + payment.getAmount());
+        System.out.println("PAYMENT RECORD: " + orderService.describeFinancialRecord(payment));
+        System.out.println("LATEST RECORD AFTER PAYMENT: " + orderService.describeLatestRecord());
+
+        Invoice invoice = orderService.createInvoice(order);
         if (invoice != null) {
             System.out.println("THIS IS THE INVOICE:" + invoice.generateSummary());
+            System.out.println("INVOICE RECORD: " + orderService.describeFinancialRecord(invoice));
+            System.out.println("LATEST RECORD AFTER INVOICE: " + orderService.describeLatestRecord());
         }
         // finish Order this prints itself
         orderService.finishOrder(order);
@@ -64,6 +68,11 @@ public class Main {
         deliveryService.assignDelivery(order, null, dropOff);
 
         // make a support ticket
+        supportService.setCurrentActor(customer);
+        System.out.println("CURRENT ACTOR: " + supportService.describeCurrentActor());
+        supportService.setCurrentActor(courier1);
+        System.out.println("CURRENT ACTOR: " + supportService.describeCurrentActor());
+
         supportService.makeComplaint(customer, order, "My fries were cold :(");
         System.out.println("Open tickets: " + supportService.getTickets().length);
         System.out.println("Customer invoices: " + customer.getInvoices().length);

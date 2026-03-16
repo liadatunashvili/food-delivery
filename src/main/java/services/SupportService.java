@@ -2,11 +2,13 @@ package services;
 
 import models.Customer;
 import models.Order;
+import models.PlatformMember;
 import models.Support;
 import models.SupportResolution;
 
 public class SupportService {
 
+    private PlatformMember currentActor;
     private Support[] tickets = new Support[0];
 
     public Support[] getTickets() {
@@ -18,7 +20,6 @@ public class SupportService {
     }
 
     public void makeComplaint(Customer customer, Order relatedOrder, String message) {
-        // had to come up with this solution because I had lists :(
         Support ticket = new Support(customer, relatedOrder, message);
         Support[] next = new Support[tickets.length + 1];
         System.arraycopy(tickets, 0, next, 0, tickets.length);
@@ -33,10 +34,14 @@ public class SupportService {
             return null;
         }
         Support ticket = tickets[index];
-        SupportResolution resolution = new SupportResolution(ticket, resolvedBy != null ? resolvedBy : "support team", message);
+        SupportResolution resolution = new SupportResolution(
+                ticket,
+                resolvedBy != null ? resolvedBy : "support team",
+                message
+        );
         ticket.close(resolution);
         tickets = removeElement(tickets, index);
-        System.out.println("Ticket was resolved successfully (hopefully): \n" + "REASON:" + resolution.getMessage());
+        System.out.println("Ticket was resolved successfully (hopefully): \nREASON:" + resolution.getMessage());
         return resolution;
     }
 
@@ -44,11 +49,10 @@ public class SupportService {
         SupportResolution resolution = new SupportResolution(ticket, "Support team", message);
         ticket.close(resolution);
         tickets = removeElement(tickets, ticket);
-        System.out.println("Ticket was resolved successfully (hopefully): \n" + "REASON:" + resolution.getMessage());
+        System.out.println("Ticket was resolved successfully (hopefully): \nREASON:" + resolution.getMessage());
         return resolution;
     }
 
-    //same with these private methods, had with lists now have like this :(
     private Support[] removeElement(Support[] array, int index) {
         Support[] result = new Support[array.length - 1];
         System.arraycopy(array, 0, result, 0, index);
@@ -68,5 +72,16 @@ public class SupportService {
             return array;
         }
         return removeElement(array, index);
+    }
+
+    public void setCurrentActor(PlatformMember currentActor) {
+        this.currentActor = currentActor;
+    }
+
+    public String describeCurrentActor() {
+        if (currentActor == null) {
+            return "No actor selected";
+        }
+        return currentActor.getRoleName();
     }
 }

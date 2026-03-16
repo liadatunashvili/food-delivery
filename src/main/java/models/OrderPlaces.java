@@ -1,6 +1,6 @@
 package models;
 
-public class OrderPlaces {
+public class OrderPlaces extends LocationInformation {
 
     private Order order;
     private String orderLocation;
@@ -8,12 +8,14 @@ public class OrderPlaces {
     private Address address;
 
     public OrderPlaces(String orderLocation, String placeName) {
+        super("Order Location");
         this.orderLocation = orderLocation;
         this.placeName = placeName;
         this.address = new Address("Unknown city", orderLocation, placeName);
     }
 
     public OrderPlaces(Address address, String placeName) {
+        super("Order Location");
         this.address = address;
         this.placeName = placeName;
         this.orderLocation = address.fullAddress();
@@ -47,6 +49,7 @@ public class OrderPlaces {
 
     public void setAddress(String city, String street, String details) {
         this.address = new Address(city, street, details);
+        this.orderLocation = this.address.fullAddress();
     }
 
     public void setAddress(Address address) {
@@ -60,5 +63,15 @@ public class OrderPlaces {
 
     public void setPlaceName(String placeName) {
         this.placeName = placeName;
+    }
+
+    @Override
+    public String formatLocation() {
+        return address.fullAddress();
+    }
+
+    @Override
+    public String toString() {
+        return formatLocation() + " (" + placeName + ")";
     }
 }

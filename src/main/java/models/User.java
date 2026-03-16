@@ -1,6 +1,6 @@
 package models;
 
-public class User {
+public abstract class User extends PlatformMember{
 
     private String name;
     private String email;
@@ -8,6 +8,7 @@ public class User {
     private String hashedPassword;
 
     public User(String name, String email, String number, String hashedPassword) {
+        super("User");
         this.name = name;
         this.email = email;
         this.number = number;
@@ -45,4 +46,6 @@ public class User {
     public void setHashedPassword(String hashedPassword) {
         this.hashedPassword = this.hashMethod(hashedPassword);
     }
+
+    public abstract String getRoleName();
 }

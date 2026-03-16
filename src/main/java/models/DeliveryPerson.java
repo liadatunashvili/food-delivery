@@ -27,6 +27,11 @@ public class DeliveryPerson extends Employee {
         this.destinationAddress = destinationAddress;
     }
 
+    @Override
+    public String getRoleName() {
+        return "Delivery Person";
+    }
+
     public OrderPlaces[] getOrderPlaces() {
         return Arrays.copyOf(orderPlaces, orderPlaces.length);
     }

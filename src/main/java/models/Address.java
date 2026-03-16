@@ -1,12 +1,13 @@
 package models;
 
-public class Address {
+public class Address extends LocationInformation {
 
     private String city;
     private String street;
     private String details;
 
     public Address(String city, String street, String details) {
+        super("Address");
         this.city = city;
         this.street = street;
         this.details = details;
@@ -40,9 +41,16 @@ public class Address {
         return city + ", " + street + ", " + details;
     }
 
+
+    @Override
+    public String formatLocation() {
+        return city + ", " + street + ", " + details;
+    }
+
     @Override
     public String toString() {
-        return fullAddress();
+        return formatLocation();
     }
+
 }
 

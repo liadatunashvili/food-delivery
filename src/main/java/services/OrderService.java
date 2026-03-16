@@ -3,6 +3,7 @@ package services;
 import java.math.BigDecimal;
 
 import models.Customer;
+import models.FinantialRecord;
 import models.Food;
 import models.Invoice;
 import models.Order;
@@ -14,6 +15,7 @@ public class OrderService {
     private final CartService cartService;
     private final PaymentService paymentService;
     private final DeliveryService deliveryService;
+    private FinantialRecord latestRecord;
 
     public OrderService(CartService cartService, PaymentService paymentService, DeliveryService deliveryService) {
         this.cartService = cartService;
@@ -40,6 +42,7 @@ public class OrderService {
     public Payment payForOrder(Order order, Payment.Method method) {
         Payment payment = paymentService.processPayment(order, method);
         order.attachPayment(payment);
+        latestRecord = payment;
         if (payment.isSuccess()) {
             order.markPaid();
         }
@@ -53,7 +56,19 @@ public class OrderService {
         Invoice invoice = new Invoice(order, order.getPayment());
         order.attachInvoice(invoice);
         order.getCustomer().addInvoice(invoice);
+        latestRecord = invoice;
         return invoice;
+    }
+
+    public String describeFinancialRecord(FinantialRecord record) {
+        return record.describeRecord();
+    }
+
+    public String describeLatestRecord() {
+        if (latestRecord == null) {
+            return "No financial record yet";
+        }
+        return latestRecord.describeRecord();
     }
 
     public void finishOrder(Order order) {

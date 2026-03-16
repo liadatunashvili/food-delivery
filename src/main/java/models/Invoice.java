@@ -2,24 +2,22 @@ package models;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-public class Invoice {
+public class Invoice extends FinantialRecord {
 
     private static int counter;
 
     private final int invoiceId;
-    private final Order order;
     private final Customer customer;
     private final Payment payment;
-    private final BigDecimal totalAmount;
     private final LocalDateTime issuedAt;
 
     public Invoice(Order order, Payment payment) {
+        super(order, order.getTotal());
         this.invoiceId = counter++;
-        this.order = order;
         this.customer = order.getCustomer();
         this.payment = payment;
-        this.totalAmount = order.getTotal();
         this.issuedAt = LocalDateTime.now();
     }
 
@@ -40,7 +38,7 @@ public class Invoice {
     }
 
     public BigDecimal getTotalAmount() {
-        return totalAmount;
+        return amount;
     }
 
     public LocalDateTime getIssuedAt() {
@@ -51,14 +49,43 @@ public class Invoice {
         return payment != null && payment.isSuccess();
     }
 
+    @Override
+    public String describeRecord() {
+        return "Invoice #" + invoiceId
+                + " for order #" + order.getId()
+                + " amount=" + amount;
+    }
+
     public String generateSummary() {
         return "Invoice #" + invoiceId + "\n" +
                 " | Order #" + order.getId() + "\n" +
                 " | Customer: " + customer.getName() + "\n" +
-                " | Total: " + totalAmount + "\n" +
+                " | Total: " + amount + "\n" +
                 " | Paid: " + isPaid() + "\n" +
                 " | Issued at: " + issuedAt + "\n" +
                 " | Signed by: FoodDelivery Company ";
+    }
+
+    @Override
+    public String toString() {
+        return describeRecord();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Invoice other)) {
+            return false;
+        }
+        return invoiceId == other.invoiceId
+                && Objects.equals(order, other.order);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(invoiceId, order);
     }
 }
 

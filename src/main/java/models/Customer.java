@@ -2,10 +2,9 @@ package models;
 
 import java.util.Arrays;
 
-public class Customer extends User {
+public class Customer extends ConsumerProfile {
 
     private static int counter;
-
     private Address deliveryAddress;
     private final Cart cart;
     private int customerID;
@@ -52,6 +51,10 @@ public class Customer extends User {
         Support[] next = Arrays.copyOf(supportTickets, supportTickets.length + 1);
         next[next.length - 1] = supportTicket;
         supportTickets = next;
+    }
+    @Override
+    public String getRoleName(){
+        return "Customer";
     }
 
     public Cart getCart() {

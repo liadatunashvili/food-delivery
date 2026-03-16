@@ -2,9 +2,8 @@ package models;
 
 import java.math.BigDecimal;
 
-public class Employee extends User {
+public class Employee extends WorkerProfile {
 
-    // this is for delivery person and customer support employee
     private BigDecimal salary;
 
     public Employee(String name, String email, String number, String hashedPassword, BigDecimal salary) {
@@ -22,5 +21,10 @@ public class Employee extends User {
 
     public void setSalary(BigDecimal salary) {
         this.salary = salary;
+    }
+
+    @Override
+    public String getRoleName(){
+        return "Employee";
     }
 }
