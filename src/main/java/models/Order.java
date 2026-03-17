@@ -6,9 +6,7 @@ import java.util.Arrays;
 public class Order {
 
     public enum Status {
-        CREATED,
-        PAID,
-        CANCELLED
+        CREATED, PAID, CANCELLED
     }
 
     private static int counter;

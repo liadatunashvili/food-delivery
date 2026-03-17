@@ -2,12 +2,12 @@ package models;
 
 public class ConsumerProfile extends User {
 
-    public ConsumerProfile(String name, String email, String number, String hashedPassword){
+    public ConsumerProfile(String name, String email, String number, String hashedPassword) {
         super(name, email, number, hashedPassword);
     }
 
     @Override
-    public String getRoleName(){
+    public String getRoleName() {
         return "Consumer";
     }
 }

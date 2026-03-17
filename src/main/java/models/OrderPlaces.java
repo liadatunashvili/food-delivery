@@ -14,6 +14,15 @@ public class OrderPlaces extends LocationInformation {
         this.address = new Address("Unknown city", orderLocation, placeName);
     }
 
+    public OrderPlaces(String locationType) {
+        super(locationType);
+    }
+
+    public OrderPlaces() {
+        super("Order Location");
+    }
+
+
     public OrderPlaces(Address address, String placeName) {
         super("Order Location");
         this.address = address;

@@ -12,7 +12,7 @@ public class LocationInformation {
         return locationType;
     }
 
-    public String formatLocation(){
-        return  locationType;
+    public String formatLocation() {
+        return locationType;
     }
 }

@@ -37,7 +37,10 @@ public class Main {
         deliveryService.addDeliveryPerson(courier2);
 
         Food burger = new Food("Burger", BigDecimal.valueOf(8.50), 2);
-        Food fries = new Food("Fries", BigDecimal.valueOf(3.00), 2);
+        Food fries = new Food();
+        fries.setName("Fries");
+        fries.setFoodprice(BigDecimal.valueOf(3.00));
+        fries.setExpiration(1);
 
         // cart operations
         cartService.addItem(burger);
@@ -64,7 +67,10 @@ public class Main {
         orderService.finishOrder(order);
 
         // now SOLO delivery stuff
-        OrderPlaces dropOff = new OrderPlaces(order, customerAddress, "Alice's Place");
+        OrderPlaces dropOff = new OrderPlaces();
+        dropOff.setAddress(customerAddress);
+        dropOff.setPlaceName("Alice's Place");
+        dropOff.setOrder(order);
         deliveryService.assignDelivery(order, null, dropOff);
 
         // make a support ticket

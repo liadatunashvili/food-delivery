@@ -1,6 +1,6 @@
 package models;
 
-public abstract class User extends PlatformMember{
+public abstract class User extends PlatformMember {
 
     private String name;
     private String email;

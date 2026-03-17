@@ -10,7 +10,6 @@ public class Cart {
     public Cart(Customer owner) {
         this.owner = owner;
     }
-
     public Customer getOwner() {
         return owner;
     }
@@ -22,6 +21,7 @@ public class Cart {
     public void setCartItems(Food[] cartItems) {
         this.cartItems = Arrays.copyOf(cartItems, cartItems.length);
     }
+
 
     public void clear() {
         this.cartItems = new Food[0];

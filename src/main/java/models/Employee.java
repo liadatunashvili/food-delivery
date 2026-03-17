@@ -24,7 +24,7 @@ public class Employee extends WorkerProfile {
     }
 
     @Override
-    public String getRoleName(){
+    public String getRoleName() {
         return "Employee";
     }
 }

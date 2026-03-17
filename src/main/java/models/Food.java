@@ -17,6 +17,10 @@ public class Food {
         this.creationDate = LocalDate.now();
     }
 
+    public Food() {
+        this.creationDate = LocalDate.now();
+    }
+
     public boolean isExpired() {
         LocalDate expirationDate = creationDate.plusDays(expiration);
         if (LocalDate.now().isBefore(expirationDate)) {

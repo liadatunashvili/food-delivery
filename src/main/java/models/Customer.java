@@ -52,8 +52,9 @@ public class Customer extends ConsumerProfile {
         next[next.length - 1] = supportTicket;
         supportTickets = next;
     }
+
     @Override
-    public String getRoleName(){
+    public String getRoleName() {
         return "Customer";
     }
 
