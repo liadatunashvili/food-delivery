@@ -35,6 +35,7 @@ public class DeliveryService {
         }
         location.setOrder(order);
         order.assignDeliveryPlace(location);
+        assignee.setDestinationAddress(location.getAddress());
         assignee.addOrder(location);
         System.out.println("Order " + order.getId() + " assigned to " + assignee.getName() + " for " + location.getPlaceName());
     }

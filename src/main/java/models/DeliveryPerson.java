@@ -4,10 +4,16 @@ import java.util.Arrays;
 
 public class DeliveryPerson extends Employee {
 
-    private String destinationAddress;
+    private Address destinationAddress;
     private OrderPlaces[] orderPlaces;
 
     public DeliveryPerson(String name, String email, String number, String hashedPassword, String destinationAddress) {
+        super(name, email, number, hashedPassword);
+        this.destinationAddress = new Address("Unknown city", destinationAddress, "Delivery area");
+        this.orderPlaces = new OrderPlaces[0];
+    }
+
+    public DeliveryPerson(String name, String email, String number, String hashedPassword, Address destinationAddress) {
         super(name, email, number, hashedPassword);
         this.destinationAddress = destinationAddress;
         this.orderPlaces = new OrderPlaces[0];
@@ -20,11 +26,19 @@ public class DeliveryPerson extends Employee {
     }
 
     public String getDestinationAddress() {
-        return destinationAddress;
+        return destinationAddress.toString();
     }
 
     public void setDestinationAddress(String destinationAddress) {
+        this.destinationAddress = new Address("Unknown city", destinationAddress, "Delivery area");
+    }
+
+    public void setDestinationAddress(Address destinationAddress) {
         this.destinationAddress = destinationAddress;
+    }
+
+    public Address getDestinationAddressDetails() {
+        return destinationAddress;
     }
 
     @Override

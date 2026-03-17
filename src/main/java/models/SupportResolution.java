@@ -3,10 +3,10 @@ package models;
 public class SupportResolution {
 
     private final Support support;
-    private final String resolvedBy;
+    private final PlatformMember resolvedBy;
     private final String message;
 
-    public SupportResolution(Support support, String resolvedBy, String message) {
+    public SupportResolution(Support support, PlatformMember resolvedBy, String message) {
         this.support = support;
         this.resolvedBy = resolvedBy;
         this.message = message;
@@ -16,8 +16,15 @@ public class SupportResolution {
         return support;
     }
 
-    public String getResolvedBy() {
+    public PlatformMember getResolvedBy() {
         return resolvedBy;
+    }
+
+    public String getResolvedByLabel() {
+        if (resolvedBy instanceof User user) {
+            return user.getName();
+        }
+        return resolvedBy != null ? resolvedBy.getRoleName() : "Unknown resolver";
     }
 
     public String getMessage() {

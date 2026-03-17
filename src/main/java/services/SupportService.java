@@ -29,14 +29,18 @@ public class SupportService {
         System.out.println("Thank you, support will answer shortly");
     }
 
-    public SupportResolution resolveTicket(int index, String message, String resolvedBy) {
+    public SupportResolution resolveTicket(int index, String message) {
+        return resolveTicket(index, message, currentActor);
+    }
+
+    public SupportResolution resolveTicket(int index, String message, PlatformMember resolvedBy) {
         if (index < 0 || index >= tickets.length) {
             return null;
         }
         Support ticket = tickets[index];
         SupportResolution resolution = new SupportResolution(
                 ticket,
-                resolvedBy != null ? resolvedBy : "support team",
+                resolvedBy != null ? resolvedBy : currentActor,
                 message
         );
         ticket.close(resolution);
@@ -46,7 +50,7 @@ public class SupportService {
     }
 
     public SupportResolution resolveTicket(Support ticket, String message) {
-        SupportResolution resolution = new SupportResolution(ticket, "Support team", message);
+        SupportResolution resolution = new SupportResolution(ticket, currentActor, message);
         ticket.close(resolution);
         tickets = removeElement(tickets, ticket);
         System.out.println("Ticket was resolved successfully (hopefully): \nREASON:" + resolution.getMessage());

@@ -79,9 +79,10 @@ public class Main {
         System.out.println("Customer support history: " + customer.getSupportTickets().length);
 
         // resolve ticket
-        SupportResolution resolution = supportService.resolveTicket(0, "No problem, we'll send a fresh portion.", "Lika");
+        supportService.setCurrentActor(courier1);
+        SupportResolution resolution = supportService.resolveTicket(0, "No problem, we'll send a fresh portion.");
         if (resolution != null) {
-            System.out.println("Resolved by: " + resolution.getResolvedBy());
+            System.out.println("Resolved by: " + resolution.getResolvedByLabel());
         }
         System.out.println("Open tickets: " + supportService.getTickets().length);
     }
