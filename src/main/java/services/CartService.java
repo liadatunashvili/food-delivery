@@ -5,8 +5,9 @@ import java.math.BigDecimal;
 import models.Cart;
 import models.Food;
 
-public class CartService {
+public class CartService implements CartOperations {
 
+    public static final String SERVICE_NAME = "CartService";
     private final Cart cart;
 
     public CartService(Cart cart) {

@@ -12,12 +12,12 @@ import models.Payment;
 
 public class OrderService {
 
-    private final CartService cartService;
-    private final PaymentService paymentService;
-    private final DeliveryService deliveryService;
+    private final CartOperations cartService;
+    private final PaymentProcessor paymentService;
+    private final DeliveryAssigner deliveryService;
     private FinantialRecord latestRecord;
 
-    public OrderService(CartService cartService, PaymentService paymentService, DeliveryService deliveryService) {
+    public OrderService(CartOperations cartService, PaymentProcessor paymentService, DeliveryAssigner deliveryService) {
         this.cartService = cartService;
         this.paymentService = paymentService;
         this.deliveryService = deliveryService;

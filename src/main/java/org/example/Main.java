@@ -10,12 +10,17 @@ import models.Invoice;
 import models.Order;
 import models.OrderPlaces;
 import models.Payment;
+import models.RoleDescribable;
 import models.SupportResolution;
+import services.CartOperations;
 import services.CartService;
+import services.DeliveryAssigner;
 import services.DeliveryService;
 import services.OrderService;
+import services.PaymentProcessor;
 import services.PaymentService;
 import services.SupportService;
+import services.TicketResolver;
 
 public class Main {
 
@@ -27,11 +32,14 @@ public class Main {
         DeliveryPerson courier2 = new DeliveryPerson("Bob", "Bobbob@example.com", "+995111111", "password", "Varketili");
 
         // setup services
-        CartService cartService = new CartService(customer.getCart());
-        PaymentService paymentService = new PaymentService();
+        CartOperations cartService = new CartService(customer.getCart());
+        PaymentProcessor paymentService = new PaymentService();
         DeliveryService deliveryService = new DeliveryService();
-        OrderService orderService = new OrderService(cartService, paymentService, deliveryService);
+        DeliveryAssigner deliveryAssigner = deliveryService;
+        OrderService orderService = new OrderService(cartService, paymentService, deliveryAssigner);
         SupportService supportService = new SupportService();
+        TicketResolver ticketResolver = supportService;
+        RoleDescribable currentMember = customer;
 
         deliveryService.addDeliveryPerson(courier1);
         deliveryService.addDeliveryPerson(courier2);
@@ -45,7 +53,9 @@ public class Main {
         // cart operations
         cartService.addItem(burger);
         cartService.addItem(fries);
-        System.out.println("CART TOTAL: " + cartService.calculateTotal());
+        System.out.println(CartService.SERVICE_NAME + " TOTAL: " + cartService.calculateTotal());
+        System.out.println("CURRENT MEMBER: " + currentMember.getRoleName());
+        System.out.println("MEMBER STATE: " + customer.describeMemberState());
 
         // create order
         Order order = orderService.createOrder(customer);
@@ -71,7 +81,7 @@ public class Main {
         dropOff.setAddress(customerAddress);
         dropOff.setPlaceName("Alice's Place");
         dropOff.setOrder(order);
-        deliveryService.assignDelivery(order, null, dropOff);
+        deliveryAssigner.assignDelivery(order, null, dropOff);
 
         // make a support ticket
         supportService.setCurrentActor(customer);
@@ -86,7 +96,7 @@ public class Main {
 
         // resolve ticket
         supportService.setCurrentActor(courier1);
-        SupportResolution resolution = supportService.resolveTicket(0, "No problem, we'll send a fresh portion.");
+        SupportResolution resolution = ticketResolver.resolveTicket(0, "No problem, we'll send a fresh portion.");
         if (resolution != null) {
             System.out.println("Resolved by: " + resolution.getResolvedByLabel());
         }

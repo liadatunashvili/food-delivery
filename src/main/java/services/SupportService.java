@@ -2,13 +2,13 @@ package services;
 
 import models.Customer;
 import models.Order;
-import models.PlatformMember;
+import models.RoleDescribable;
 import models.Support;
 import models.SupportResolution;
 
-public class SupportService {
+public class SupportService implements TicketResolver {
 
-    private PlatformMember currentActor;
+    private RoleDescribable currentActor;
     private Support[] tickets = new Support[0];
 
     public Support[] getTickets() {
@@ -33,7 +33,7 @@ public class SupportService {
         return resolveTicket(index, message, currentActor);
     }
 
-    public SupportResolution resolveTicket(int index, String message, PlatformMember resolvedBy) {
+    public SupportResolution resolveTicket(int index, String message, RoleDescribable resolvedBy) {
         if (index < 0 || index >= tickets.length) {
             return null;
         }
@@ -78,7 +78,7 @@ public class SupportService {
         return removeElement(array, index);
     }
 
-    public void setCurrentActor(PlatformMember currentActor) {
+    public void setCurrentActor(RoleDescribable currentActor) {
         this.currentActor = currentActor;
     }
 

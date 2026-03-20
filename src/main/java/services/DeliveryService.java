@@ -6,7 +6,7 @@ import models.DeliveryPerson;
 import models.Order;
 import models.OrderPlaces;
 
-public class DeliveryService {
+public final class DeliveryService implements DeliveryAssigner {
 
     private DeliveryPerson[] deliveryPeople = new DeliveryPerson[0];
 

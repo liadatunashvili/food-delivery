@@ -3,10 +3,10 @@ package models;
 public class SupportResolution {
 
     private final Support support;
-    private final PlatformMember resolvedBy;
+    private final RoleDescribable resolvedBy;
     private final String message;
 
-    public SupportResolution(Support support, PlatformMember resolvedBy, String message) {
+    public SupportResolution(Support support, RoleDescribable resolvedBy, String message) {
         this.support = support;
         this.resolvedBy = resolvedBy;
         this.message = message;
@@ -16,7 +16,7 @@ public class SupportResolution {
         return support;
     }
 
-    public PlatformMember getResolvedBy() {
+    public RoleDescribable getResolvedBy() {
         return resolvedBy;
     }
 
@@ -31,4 +31,3 @@ public class SupportResolution {
         return message;
     }
 }
-
