@@ -35,7 +35,7 @@ public class SupportService implements TicketResolver {
 
     public SupportResolution resolveTicket(int index, String message, RoleDescribable resolvedBy) {
         if (index < 0 || index >= tickets.length) {
-            return null;
+            throw new InvalidIndexException("Invalid index");
         }
         Support ticket = tickets[index];
         SupportResolution resolution = new SupportResolution(

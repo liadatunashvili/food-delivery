@@ -2,16 +2,7 @@ package org.example;
 
 import java.math.BigDecimal;
 
-import models.Address;
-import models.Customer;
-import models.DeliveryPerson;
-import models.Food;
-import models.Invoice;
-import models.Order;
-import models.OrderPlaces;
-import models.Payment;
-import models.RoleDescribable;
-import models.SupportResolution;
+import models.*;
 import services.CartOperations;
 import services.CartService;
 import services.DeliveryAssigner;
@@ -24,7 +15,7 @@ import services.TicketResolver;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExpiredFoodException {
         // setup models
         Address customerAddress = new Address("Tbilisi", "Gldani", "Building 5, Apt 12");
         Customer customer = new Customer("Lika", "likadatvi17@example.com", "+995568332112", "password", customerAddress);

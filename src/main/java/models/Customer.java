@@ -92,6 +92,7 @@ public class Customer extends ConsumerProfile {
     }
 
     public int getCustomerID() {
+
         return customerID;
     }
 }

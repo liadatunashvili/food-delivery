@@ -26,6 +26,9 @@ public final class DeliveryService implements DeliveryAssigner {
     }
 
     public void assignDelivery(Order order, DeliveryPerson deliveryPerson, OrderPlaces location) {
+        if (location == null) {
+            throw new InvalidAddressException("location is not known");
+        }
         DeliveryPerson assignee = deliveryPerson;
         if (assignee == null && deliveryPeople.length > 0) {
             assignee = deliveryPeople[deliveryPeople.length - 1];

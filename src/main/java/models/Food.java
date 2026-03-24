@@ -10,25 +10,27 @@ public class Food {
     private int expiration;
     private final LocalDate creationDate;
 
-    public Food(String name, BigDecimal foodPrice, int expiration) {
+    public Food(String name, BigDecimal foodPrice, int expiration) throws ExpiredFoodException {
         this.name = name;
         this.foodPrice = foodPrice;
         this.expiration = expiration;
         this.creationDate = LocalDate.now();
     }
 
-    public Food() {
+    public Food() throws ExpiredFoodException {
         this.creationDate = LocalDate.now();
     }
 
-    public boolean isExpired() {
+    public boolean isExpired() throws ExpiredFoodException {
         LocalDate expirationDate = creationDate.plusDays(expiration);
-        if (LocalDate.now().isBefore(expirationDate)) {
-            return true;
+        if (LocalDate.now().isAfter(expirationDate)) {
+            throw new ExpiredFoodException("the food" + name + "is expired");
         } else {
-            return false;
+            return true;
         }
+
     }
+
 
     public String getName() {
         return name;

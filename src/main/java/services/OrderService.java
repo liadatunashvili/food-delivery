@@ -2,13 +2,7 @@ package services;
 
 import java.math.BigDecimal;
 
-import models.Customer;
-import models.FinantialRecord;
-import models.Food;
-import models.Invoice;
-import models.Order;
-import models.OrderPlaces;
-import models.Payment;
+import models.*;
 
 public class OrderService {
 
@@ -23,7 +17,7 @@ public class OrderService {
         this.deliveryService = deliveryService;
     }
 
-    public Order createOrder(Customer customer) {
+    public Order createOrder(Customer customer) throws ExpiredFoodException {
         Food[] items = customer.getCart().getCartItems();
 
         for (Food item : items) {
@@ -40,13 +34,19 @@ public class OrderService {
     }
 
     public Payment payForOrder(Order order, Payment.Method method) {
-        Payment payment = paymentService.processPayment(order, method);
-        order.attachPayment(payment);
-        latestRecord = payment;
-        if (payment.isSuccess()) {
-            order.markPaid();
+        try {
+            Payment payment = paymentService.processPayment(order, method);
+            order.attachPayment(payment);
+            latestRecord = payment;
+            if (payment.isSuccess()) {
+                order.markPaid();
+            }
+            return payment;
+        } catch (InvalidPaymentException e) {
+            System.out.println("Payment failed: " + e.getMessage());
+            return null;
+
         }
-        return payment;
     }
 
     public Invoice createInvoice(Order order) {

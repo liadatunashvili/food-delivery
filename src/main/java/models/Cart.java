@@ -10,6 +10,7 @@ public class Cart {
     public Cart(Customer owner) {
         this.owner = owner;
     }
+
     public Customer getOwner() {
         return owner;
     }
@@ -35,8 +36,7 @@ public class Cart {
 
     public void removeFromCart(Food food) {
         if (cartItems.length == 0) {
-            System.out.println("EMPTRY CART");
-            return;
+            throw new EmptyCartException();
         }
         int index = -1;
         for (int i = 0; i < cartItems.length; i++) {
@@ -54,4 +54,6 @@ public class Cart {
         System.arraycopy(cartItems, index + 1, next, index, cartItems.length - index - 1);
         cartItems = next;
     }
+
+
 }
