@@ -6,7 +6,7 @@ import models.RoleDescribable;
 import models.Support;
 import models.SupportResolution;
 
-public class SupportService implements TicketResolver {
+public class SupportService implements TicketResolver, AutoCloseable {
 
     private RoleDescribable currentActor;
     private Support[] tickets = new Support[0];
@@ -87,5 +87,10 @@ public class SupportService implements TicketResolver {
             return "No actor selected";
         }
         return currentActor.getRoleName();
+    }
+
+    @Override
+    public void close() {
+        currentActor = null;
     }
 }

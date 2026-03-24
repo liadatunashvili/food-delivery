@@ -2,7 +2,18 @@ package org.example;
 
 import java.math.BigDecimal;
 
-import models.*;
+import models.Address;
+import models.Cart;
+import models.Customer;
+import models.DeliveryPerson;
+import models.ExpiredFoodException;
+import models.Food;
+import models.Invoice;
+import models.Order;
+import models.OrderPlaces;
+import models.Payment;
+import models.RoleDescribable;
+import models.SupportResolution;
 import services.CartOperations;
 import services.CartService;
 import services.DeliveryAssigner;
@@ -28,8 +39,6 @@ public class Main {
         DeliveryService deliveryService = new DeliveryService();
         DeliveryAssigner deliveryAssigner = deliveryService;
         OrderService orderService = new OrderService(cartService, paymentService, deliveryAssigner);
-        SupportService supportService = new SupportService();
-        TicketResolver ticketResolver = supportService;
         RoleDescribable currentMember = customer;
 
         deliveryService.addDeliveryPerson(courier1);
@@ -74,23 +83,29 @@ public class Main {
         dropOff.setOrder(order);
         deliveryAssigner.assignDelivery(order, null, dropOff);
 
-        // make a support ticket
-        supportService.setCurrentActor(customer);
-        System.out.println("CURRENT ACTOR: " + supportService.describeCurrentActor());
-        supportService.setCurrentActor(courier1);
-        System.out.println("CURRENT ACTOR: " + supportService.describeCurrentActor());
+        try (SupportService supportService = new SupportService()) {
+            TicketResolver ticketResolver = supportService;
 
-        supportService.makeComplaint(customer, order, "My fries were cold :(");
-        System.out.println("Open tickets: " + supportService.getTickets().length);
-        System.out.println("Customer invoices: " + customer.getInvoices().length);
-        System.out.println("Customer support history: " + customer.getSupportTickets().length);
+            // make a support ticket
+            supportService.setCurrentActor(customer);
+            System.out.println("CURRENT ACTOR: " + supportService.describeCurrentActor());
+            supportService.setCurrentActor(courier1);
+            System.out.println("CURRENT ACTOR: " + supportService.describeCurrentActor());
 
-        // resolve ticket
-        supportService.setCurrentActor(courier1);
-        SupportResolution resolution = ticketResolver.resolveTicket(0, "No problem, we'll send a fresh portion.");
-        if (resolution != null) {
-            System.out.println("Resolved by: " + resolution.getResolvedByLabel());
+            supportService.makeComplaint(customer, order, "My fries were cold :(");
+            System.out.println("Open tickets: " + supportService.getTickets().length);
+            System.out.println("Customer invoices: " + customer.getInvoices().length);
+            System.out.println("Customer support history: " + customer.getSupportTickets().length);
+
+            // resolve ticket
+            supportService.setCurrentActor(courier1);
+            SupportResolution resolution = ticketResolver.resolveTicket(0, "No problem, we'll send a fresh portion.");
+            if (resolution != null) {
+                System.out.println("Resolved by: " + resolution.getResolvedByLabel());
+            }
+            System.out.println("Open tickets: " + supportService.getTickets().length);
+        } catch (RuntimeException exception) {
+            System.out.println("Support error: " + exception.getMessage());
         }
-        System.out.println("Open tickets: " + supportService.getTickets().length);
     }
 }
