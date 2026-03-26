@@ -1,4 +1,4 @@
-package models;
+package Exceptions;
 
 public class EmptyCartException extends RuntimeException {
 

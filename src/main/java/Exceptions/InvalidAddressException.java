@@ -1,4 +1,4 @@
-package services;
+package Exceptions;
 
 public class InvalidAddressException extends RuntimeException {
 

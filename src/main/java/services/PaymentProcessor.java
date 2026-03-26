@@ -1,5 +1,6 @@
 package services;
 
+import Exceptions.InvalidPaymentException;
 import models.Order;
 import models.Payment;
 

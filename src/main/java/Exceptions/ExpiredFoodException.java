@@ -1,4 +1,4 @@
-package models;
+package Exceptions;
 
 public class ExpiredFoodException extends RuntimeException {
 

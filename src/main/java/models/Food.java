@@ -1,5 +1,7 @@
 package models;
 
+import Exceptions.ExpiredFoodException;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
