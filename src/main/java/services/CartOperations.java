@@ -1,6 +1,7 @@
 package services;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import models.Food;
 
@@ -10,7 +11,8 @@ public interface CartOperations {
 
     void removeItem(Food food);
 
-    Food[] viewItems();
+
+    ArrayList<Food> viewItemsList();
 
     BigDecimal calculateTotal();
 }

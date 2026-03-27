@@ -1,6 +1,7 @@
 package services;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import models.Cart;
 import models.Food;
@@ -22,9 +23,11 @@ public class CartService implements CartOperations {
         cart.removeFromCart(food);
     }
 
-    public Food[] viewItems() {
-        return cart.getCartItems();
+    @Override
+    public ArrayList<Food> viewItemsList() {
+        return (ArrayList<Food>) cart.getCartItems();
     }
+
 
     public BigDecimal calculateTotal() {
         BigDecimal total = BigDecimal.ZERO;

@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 public class Address extends LocationInformation {
 
     private String city;
@@ -50,6 +52,21 @@ public class Address extends LocationInformation {
     @Override
     public String toString() {
         return formatLocation();
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return city.equals(address.city) &&
+                street.equals(address.street) &&
+                details.equals(address.details);
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(city, street, details);
     }
 
 }

@@ -1,6 +1,8 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Customer extends ConsumerProfile {
 
@@ -8,9 +10,10 @@ public class Customer extends ConsumerProfile {
     private Address deliveryAddress;
     private final Cart cart;
     private int customerID;
-    private Order[] orders = new Order[0];
-    private Invoice[] invoices = new Invoice[0];
-    private Support[] supportTickets = new Support[0];
+    private List<Order> orders = new ArrayList<>();
+    private List<Invoice> invoices = new ArrayList<>();
+    private List<Support> supportTickets = new ArrayList<>();
+
 
     public Customer(String name, String email, String number, String hashedPassword, String address) {
         super(name, email, number, hashedPassword);
@@ -26,31 +29,24 @@ public class Customer extends ConsumerProfile {
         this.customerID = counter++;
     }
 
-    public Customer(String name, String email, String number, String hashedPassword, int customerID, Order[] orders,
-                    String city, String street, String details) {
+    public Customer(String name, String email, String number, String hashedPassword, int customerID, Order[] orders, String city, String street, String details) {
         super(name, email, number, hashedPassword);
         this.deliveryAddress = new Address(city, street, details);
         this.cart = new Cart(this);
         this.customerID = customerID;
-        this.orders = Arrays.copyOf(orders, orders.length);
+        this.orders = orders == null ? new ArrayList<>() : new ArrayList<>(Arrays.asList(orders));
     }
 
     public void addOrder(Order order) {
-        Order[] next = Arrays.copyOf(orders, orders.length + 1);
-        next[next.length - 1] = order;
-        orders = next;
+        orders.add(order);
     }
 
     public void addInvoice(Invoice invoice) {
-        Invoice[] next = Arrays.copyOf(invoices, invoices.length + 1);
-        next[next.length - 1] = invoice;
-        invoices = next;
+        invoices.add(invoice);
     }
 
     public void addSupportTicket(Support supportTicket) {
-        Support[] next = Arrays.copyOf(supportTickets, supportTickets.length + 1);
-        next[next.length - 1] = supportTicket;
-        supportTickets = next;
+        supportTickets.add(supportTicket);
     }
 
     @Override
@@ -62,16 +58,16 @@ public class Customer extends ConsumerProfile {
         return cart;
     }
 
-    public Order[] getOrders() {
-        return Arrays.copyOf(orders, orders.length);
+    public List<Order> getOrders() {
+        return new ArrayList<>(orders);
     }
 
-    public Invoice[] getInvoices() {
-        return Arrays.copyOf(invoices, invoices.length);
+    public List<Invoice> getInvoices() {
+        return new ArrayList<>(invoices);
     }
 
-    public Support[] getSupportTickets() {
-        return Arrays.copyOf(supportTickets, supportTickets.length);
+    public List<Support> getSupportTickets() {
+        return new ArrayList<>(supportTickets);
     }
 
     public String getAddress() {

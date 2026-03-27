@@ -1,18 +1,10 @@
 package org.example;
 
 import java.math.BigDecimal;
+import java.util.*;
 
-import models.Address;
-import models.Customer;
-import models.DeliveryPerson;
+import models.*;
 import Exceptions.ExpiredFoodException;
-import models.Food;
-import models.Invoice;
-import models.Order;
-import models.OrderPlaces;
-import models.Payment;
-import models.RoleDescribable;
-import models.SupportResolution;
 import services.CartOperations;
 import services.CartService;
 import services.DeliveryAssigner;
@@ -31,6 +23,79 @@ public class Main {
         Customer customer = new Customer("Lika", "likadatvi17@example.com", "+995568332112", "password", customerAddress);
         DeliveryPerson courier1 = new DeliveryPerson("Dato", "dato@example.com", "+995555555", "password", "gldani IV mikro");
         DeliveryPerson courier2 = new DeliveryPerson("Bob", "Bobbob@example.com", "+995111111", "password", "Varketili");
+        Set<Address> addressSet = new HashSet<>();
+        addressSet.add(new Address("Tbilisi", "Gldami", "Building 5, Apt 12"));
+        addressSet.add((new Address("Batumi", "sanapiro", "building 6, Apt 13")));
+        System.out.println("Set size: " + addressSet.size());
+
+        List<Food> demoList = new ArrayList<>();
+        System.out.println("List is empty? " + demoList.isEmpty());
+        Food burger = new Food();
+        Food strawberry = new Food();
+        demoList.add(burger);
+        demoList.add(strawberry);
+        System.out.println("List size after adding: " + demoList.size());
+        Food firstFood = demoList.get(0);
+        System.out.println("First food in list: " + firstFood.getName());
+        demoList.remove(burger);
+        System.out.println("List size after removing burger: " + demoList.size());
+
+        System.out.println("Address set is empty? " + addressSet.isEmpty());
+        addressSet.remove(new Address("Batumi", "sanapiro", "building 6, Apt 13"));
+        System.out.println("Address set size after removal: " + addressSet.size());
+
+        Map<Address, Customer> addressCustomerMap = new HashMap<>();
+        addressCustomerMap.put(customerAddress, customer);
+        System.out.println("Map size after put: " + addressCustomerMap.size());
+        Customer foundCustomer = addressCustomerMap.get(customerAddress);
+        System.out.println("Customer found by address: " + (foundCustomer != null ? foundCustomer.getName() : "Not found"));
+        addressCustomerMap.remove(customerAddress);
+        System.out.println("Map size after removal: " + addressCustomerMap.size());
+        System.out.println("Map is empty? " + addressCustomerMap.isEmpty());
+
+        //iteration part
+        System.out.println("iteration through customer invoice");
+        for (Invoice invoice : customer.getInvoices()) {
+            System.out.println(invoice.generateSummary());
+        }
+
+        System.out.println("iteration though addresses");
+        for (Address address : addressSet) {
+            System.out.println(address);
+        }
+
+        System.out.println("iteration through customer address");
+        for (Map.Entry<Address, Customer> entry : addressCustomerMap.entrySet()) {
+            System.out.println("key: " + entry.getKey() + " - value: " + entry.getValue().getName());
+        }
+
+        //retrive elementss
+
+        if (!demoList.isEmpty()) {
+            Food firstFoodInList = demoList.getFirst();
+            System.out.println("first food from list: " + firstFoodInList.getName());
+        }
+
+        if (!addressSet.isEmpty()) {
+            Address firstAddresInList = addressSet.iterator().next();
+            System.out.println("first addres in set: " + firstAddresInList);
+        }
+
+        if (!!addressCustomerMap.isEmpty()) {
+            Map.Entry<Address, Customer> firstPair = addressCustomerMap.entrySet().iterator().next();
+            System.out.println("first pair's key: " + firstPair.getKey());
+            System.out.println("first pair in map: " + firstPair.getValue().getName());
+        }
+
+        // using generics
+        FoodBox<Food> foodBox = new FoodBox<>(strawberry);
+        System.out.println("What is in box: " + foodBox.get().getName());
+        foodBox.set(burger);
+        System.out.println("what is in box now: " + foodBox.get().getName());
+
+        Pair<Address, Customer> customerAndAddress = new Pair<>(customerAddress, customer);
+        System.out.println("pair: " + customerAndAddress);
+
 
         // setup services
         CartOperations cartService = new CartService(customer.getCart());
@@ -43,7 +108,7 @@ public class Main {
         deliveryService.addDeliveryPerson(courier1);
         deliveryService.addDeliveryPerson(courier2);
 
-        Food burger = new Food("Burger", BigDecimal.valueOf(8.50), 2);
+        burger = new Food("Burger", BigDecimal.valueOf(8.50), 2);
         Food fries = new Food();
         fries.setName("Fries");
         fries.setFoodprice(BigDecimal.valueOf(3.00));
@@ -92,9 +157,9 @@ public class Main {
             System.out.println("CURRENT ACTOR: " + supportService.describeCurrentActor());
 
             supportService.makeComplaint(customer, order, "My fries were cold :(");
-            System.out.println("Open tickets: " + supportService.getTickets().length);
-            System.out.println("Customer invoices: " + customer.getInvoices().length);
-            System.out.println("Customer support history: " + customer.getSupportTickets().length);
+            System.out.println("Open tickets: " + supportService.getTickets().size());
+            System.out.println("Customer invoices: " + customer.getInvoices().size());
+            System.out.println("Customer support history: " + customer.getSupportTickets().size());
 
             // resolve ticket
             supportService.setCurrentActor(courier1);
@@ -102,7 +167,7 @@ public class Main {
             if (resolution != null) {
                 System.out.println("Resolved by: " + resolution.getResolvedByLabel());
             }
-            System.out.println("Open tickets: " + supportService.getTickets().length);
+            System.out.println("Open tickets: " + supportService.getTickets().size());
         } catch (RuntimeException exception) {
             System.out.println("Support error: " + exception.getMessage());
         }

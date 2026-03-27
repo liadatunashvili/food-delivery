@@ -1,6 +1,8 @@
 package services;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 import Exceptions.ExpiredFoodException;
 import Exceptions.InvalidPaymentException;
@@ -20,7 +22,7 @@ public class OrderService {
     }
 
     public Order createOrder(Customer customer) throws ExpiredFoodException {
-        Food[] items = customer.getCart().getCartItems();
+        List<Food> items = customer.getCart().getCartItems();
 
         for (Food item : items) {
             if (item.isExpired()) {
@@ -29,7 +31,7 @@ public class OrderService {
             }
         }
         BigDecimal total = cartService.calculateTotal();
-        Order order = new Order(customer, customer.getCart().getCartItems(), total);
+        Order order = new Order(customer, (Map<Food, Integer>) customer.getCart().getCartItems(), total);
         customer.addOrder(order);
         customer.getCart().clear();
         return order;

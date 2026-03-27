@@ -1,7 +1,7 @@
 package models;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.*;
 
 public class Order {
 
@@ -13,17 +13,17 @@ public class Order {
 
     private final int id;
     private final Customer customer;
-    private final Food[] items;
+    private final Map<Food, Integer> items;
     private final BigDecimal total;
     private Payment payment;
     private Invoice invoice;
     private OrderPlaces deliveryPlace;
     private Status status;
 
-    public Order(Customer customer, Food[] items, BigDecimal total) {
+    public Order(Customer customer, Map<Food, Integer> items, BigDecimal total) {
         this.id = ++counter;
         this.customer = customer;
-        this.items = Arrays.copyOf(items, items.length);
+        this.items = new HashMap<>(items);
         this.total = total;
         this.status = Status.CREATED;
     }
@@ -36,8 +36,8 @@ public class Order {
         return customer;
     }
 
-    public Food[] getItems() {
-        return Arrays.copyOf(items, items.length);
+    public Map<Food, Integer> getItems() {
+        return Collections.unmodifiableMap(items);
     }
 
     public BigDecimal getTotal() {

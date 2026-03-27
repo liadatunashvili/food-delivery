@@ -2,12 +2,14 @@ package models;
 
 import Exceptions.EmptyCartException;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Cart {
 
     private final Customer owner;
-    private Food[] cartItems = new Food[0];
+
+    private List<Food> cartItems = new ArrayList<>();
 
     public Cart(Customer owner) {
         this.owner = owner;
@@ -17,49 +19,33 @@ public class Cart {
         return owner;
     }
 
-    public Food[] getCartItems() {
-        return Arrays.copyOf(cartItems, cartItems.length);
+    public List<Food> getCartItems() {
+        return new ArrayList<>(cartItems);
     }
 
-    public void setCartItems(Food[] cartItems) {
-        this.cartItems = Arrays.copyOf(cartItems, cartItems.length);
+    public void setCartItems(List<Food> cartItems) {
+
+        this.cartItems = new ArrayList<>(cartItems);
     }
 
 
     public void clear() {
-        this.cartItems = new Food[0];
+        this.cartItems = List.of(new Food[0]);
     }
 
     public void addToCart(Food food) {
-        Food[] next = Arrays.copyOf(cartItems, cartItems.length + 1);
-        next[next.length - 1] = food;
-        cartItems = next;
+        cartItems.add(food);
     }
 
     public void removeFromCart(Food food) {
-        if (cartItems.length == 0) {
+        if (cartItems.isEmpty()) {
             throw new EmptyCartException();
         }
-        try {
-            int index = -1;
-            for (int i = 0; i < cartItems.length; i++) {
-                if (cartItems[i] == food) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index == -1) {
-                System.out.println("could not find that item");
-                return;
-            }
-            Food[] next = new Food[cartItems.length - 1];
-            System.arraycopy(cartItems, 0, next, 0, index);
-            System.arraycopy(cartItems, index + 1, next, index, cartItems.length - index - 1);
-            cartItems = next;
-        } finally {
-            System.out.println("Cart is empty");
+        if (!cartItems.remove(food)) {
+            System.out.println("could not find that item");
         }
 
+        System.out.println("cart is empty");
     }
 
 
