@@ -20,12 +20,12 @@ public class Cart {
     }
 
     public List<Food> getCartItems() {
-        return new ArrayList<>(cartItems);
+        return cartItems;
     }
 
     public void setCartItems(List<Food> cartItems) {
 
-        this.cartItems = new ArrayList<>(cartItems);
+        this.cartItems = cartItems;
     }
 
 

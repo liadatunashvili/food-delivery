@@ -16,7 +16,7 @@ public class SupportService implements TicketResolver, AutoCloseable {
     private List<Support> tickets = new ArrayList<>();
 
     public List<Support> getTickets() {
-        return new ArrayList<>(tickets);
+        return tickets;
     }
 
     public void makeComplaint(Customer customer, String message) {
@@ -54,25 +54,14 @@ public class SupportService implements TicketResolver, AutoCloseable {
         return resolution;
     }
 
-    private Support[] removeElement(Support[] array, int index) {
-        Support[] result = new Support[array.length - 1];
-        System.arraycopy(array, 0, result, 0, index);
-        System.arraycopy(array, index + 1, result, index, array.length - index - 1);
-        return result;
+    private List<Support> removeElement(List<Support> array, int index) {
+        array.remove(index);
+        return array;
     }
 
-    private Support[] removeElement(Support[] array, Support element) {
-        int index = -1;
-        for (int i = 0; i < array.length; i++) {
-            if (array[i].equals(element)) {
-                index = i;
-                break;
-            }
-        }
-        if (index == -1) {
-            return array;
-        }
-        return removeElement(array, index);
+    private List<Support> removeElement(List<Support> array, Support element) {
+        array.remove(element);
+        return array;
     }
 
     public void setCurrentActor(RoleDescribable currentActor) {

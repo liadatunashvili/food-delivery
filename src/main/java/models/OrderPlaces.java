@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 public class OrderPlaces extends LocationInformation {
 
     private Order order;
@@ -82,5 +84,10 @@ public class OrderPlaces extends LocationInformation {
     @Override
     public String toString() {
         return formatLocation() + " (" + placeName + ")";
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(orderLocation, placeName, address);
     }
 }

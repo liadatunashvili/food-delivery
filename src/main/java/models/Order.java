@@ -23,7 +23,7 @@ public class Order {
     public Order(Customer customer, Map<Food, Integer> items, BigDecimal total) {
         this.id = ++counter;
         this.customer = customer;
-        this.items = new HashMap<>(items);
+        this.items = items;
         this.total = total;
         this.status = Status.CREATED;
     }

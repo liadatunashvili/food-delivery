@@ -4,6 +4,7 @@ import Exceptions.ExpiredFoodException;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Food {
 
@@ -62,4 +63,9 @@ public class Food {
         return creationDate;
     }
 
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, foodPrice, expiration, creationDate);
+    }
 }

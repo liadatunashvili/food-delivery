@@ -47,7 +47,7 @@ public class DeliveryPerson extends Employee {
     }
 
     public Set<OrderPlaces> getOrderPlaces() {
-        return new HashSet<>(orderPlaces);
+        return orderPlaces;
     }
 
 }

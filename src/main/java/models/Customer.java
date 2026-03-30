@@ -29,12 +29,12 @@ public class Customer extends ConsumerProfile {
         this.customerID = counter++;
     }
 
-    public Customer(String name, String email, String number, String hashedPassword, int customerID, Order[] orders, String city, String street, String details) {
+    public Customer(String name, String email, String number, String hashedPassword, int customerID, List<Order> orders, String city, String street, String details) {
         super(name, email, number, hashedPassword);
         this.deliveryAddress = new Address(city, street, details);
         this.cart = new Cart(this);
         this.customerID = customerID;
-        this.orders = orders == null ? new ArrayList<>() : new ArrayList<>(Arrays.asList(orders));
+        this.orders = orders == null ? new ArrayList<>() : orders;
     }
 
     public void addOrder(Order order) {
@@ -59,15 +59,15 @@ public class Customer extends ConsumerProfile {
     }
 
     public List<Order> getOrders() {
-        return new ArrayList<>(orders);
+        return orders;
     }
 
     public List<Invoice> getInvoices() {
-        return new ArrayList<>(invoices);
+        return invoices;
     }
 
     public List<Support> getSupportTickets() {
-        return new ArrayList<>(supportTickets);
+        return supportTickets;
     }
 
     public String getAddress() {

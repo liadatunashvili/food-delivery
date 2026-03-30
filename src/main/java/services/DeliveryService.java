@@ -14,7 +14,7 @@ public final class DeliveryService implements DeliveryAssigner {
     private List<DeliveryPerson> deliveryPeople = new ArrayList<>();
 
     public DeliveryService(List<DeliveryPerson> deliveryPeople) {
-        this.deliveryPeople = new ArrayList<>(deliveryPeople);
+        this.deliveryPeople = deliveryPeople;
     }
 
     public DeliveryService() {
