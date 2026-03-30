@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7f4630d5-3940-496f-b404-a2ce185da5b6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Enums/FoodCategory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Enums/OrderStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Enums/PaymentType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Enums/SupportType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Enums/UserRole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/FoodSummary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/LambdaFunctions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/customLambda.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="38" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Enum" />
+        <option value="Record" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "main",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "editor.preferences.completion"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+</project>

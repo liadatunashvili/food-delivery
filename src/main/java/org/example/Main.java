@@ -3,6 +3,7 @@ package org.example;
 import java.math.BigDecimal;
 import java.util.*;
 
+import Enums.OrderStatus;
 import models.*;
 import Exceptions.ExpiredFoodException;
 import services.CartOperations;
@@ -146,6 +147,26 @@ public class Main {
         dropOff.setPlaceName("Alice's Place");
         dropOff.setOrder(order);
         deliveryAssigner.assignDelivery(order, null, dropOff);
+
+        //lambdazz
+        customLambda.FoodDiscount discount = (food, percent) -> food.getFoodPrice().doubleValue() * (1 - percent / 100);
+        double discounted = discount.applyDiscount(burger, 10);
+        System.out.println("discounted price: " + discounted);
+
+        customLambda.FoodFormatter formatter = food -> "Food: " + food.getName() + ", price: " + food.getFoodPrice();
+        System.out.println(formatter.format(burger));
+
+        customLambda.FoodChecker isExpiringSoon = food -> food.getExpiration() < 3;
+        System.out.println("is it  expiring ? " + isExpiringSoon.check(burger));
+
+        Runnable r = () -> System.out.println("executed");
+        r.run();
+
+        FoodSummary summary = new FoodSummary(burger.getName(), burger.getFoodPrice().doubleValue(), burger.getExpiration());
+        System.out.println("food summary: " + summary);
+
+        System.out.println(OrderStatus.PAID.getDescription());
+
 
         try (SupportService supportService = new SupportService()) {
             TicketResolver ticketResolver = supportService;
