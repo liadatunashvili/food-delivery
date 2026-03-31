@@ -2,7 +2,9 @@ package Enums;
 
 public enum PaymentType {
 
-    CARD("card"), CASH("cash");
+    CARD("card"),
+    CASH("cash");
+
     private final String type;
 
     PaymentType(String type) {

@@ -2,7 +2,10 @@ package Enums;
 
 public enum UserRole {
 
-    CUSTOMER("customer"), COURIER("DeliveryPerson"), ADMIN("admin");
+    CUSTOMER("customer"),
+    COURIER("DeliveryPerson"),
+    ADMIN("admin");
+
     private final String label;
 
     UserRole(String label) {

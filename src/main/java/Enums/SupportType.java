@@ -3,7 +3,9 @@ package Enums;
 
 public enum SupportType {
 
-    COMPLAINT("Complaint"), QUESTION("question");
+    COMPLAINT("Complaint"),
+    QUESTION("question");
+
     private final String kind;
 
     SupportType(String kind) {

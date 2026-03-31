@@ -3,7 +3,10 @@ package Enums;
 
 public enum FoodCategory {
 
-    BURGER("burger"), FRIES("fries"), DRINK("drink");
+    BURGER("burger"),
+    FRIES("fries"),
+    DRINK("drink");
+
     private final String category;
 
     FoodCategory(String category) {

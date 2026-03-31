@@ -2,7 +2,10 @@ package Enums;
 
 public enum OrderStatus {
 
-    CREATED("order created"), PAID("order paid"), CANCELLED("order cancelled");
+    CREATED("order created"),
+    PAID("order paid"),
+    CANCELLED("order cancelled");
+
     private final String description;
 
     OrderStatus(String desc) {
