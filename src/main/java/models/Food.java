@@ -63,9 +63,22 @@ public class Food {
         return creationDate;
     }
 
-
     @Override
     public int hashCode() {
         return Objects.hash(name, foodPrice, expiration, creationDate);
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Food other = (Food) obj;
+        return Objects.equals(name, other.name) && 
+               Objects.equals(foodPrice, other.foodPrice) &&
+               Objects.equals(expiration, other.expiration) &&
+               Objects.equals(creationDate, other.creationDate);
     }
 }
