@@ -90,4 +90,18 @@ public class OrderPlaces extends LocationInformation {
     public int hashCode() {
         return Objects.hash(orderLocation, placeName, address);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        OrderPlaces other = (OrderPlaces) obj;
+        return Objects.equals(address, other.address) && 
+               Objects.equals(orderLocation, other.orderLocation) &&
+               Objects.equals(placeName, other.placeName);
+    }
 }
