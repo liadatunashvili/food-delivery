@@ -55,9 +55,9 @@ public class Address extends LocationInformation {
     }
 
     @Override
-    public boolean equals(Object o){
-        if(this == o) return true;
-        if(o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
         return city.equals(address.city) &&
                 street.equals(address.street) &&
@@ -65,7 +65,7 @@ public class Address extends LocationInformation {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(city, street, details);
     }
 

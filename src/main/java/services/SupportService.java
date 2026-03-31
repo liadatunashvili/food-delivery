@@ -1,11 +1,7 @@
 package services;
 
 import exceptions.InvalidIndexException;
-import models.Customer;
-import models.Order;
-import models.RoleDescribable;
-import models.Support;
-import models.SupportResolution;
+import models.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +9,7 @@ import java.util.List;
 public class SupportService implements TicketResolver, AutoCloseable {
 
     private RoleDescribable currentActor;
-    private List<Support> tickets = new ArrayList<>();
+    private final List<Support> tickets = new ArrayList<>();
 
     public List<Support> getTickets() {
         return tickets;
@@ -42,7 +38,7 @@ public class SupportService implements TicketResolver, AutoCloseable {
         SupportResolution resolution = new SupportResolution(ticket, resolvedBy != null ? resolvedBy : currentActor, message);
         ticket.close(resolution);
         tickets.remove(index);
-        System.out.println("Ticket was resolved successfully (hopefully): \nREASON:" + resolution.getMessage());
+        System.out.println("Ticket was resolved successfully (hopefully): \nREASON:" + resolution.message());
         return resolution;
     }
 
@@ -50,7 +46,7 @@ public class SupportService implements TicketResolver, AutoCloseable {
         SupportResolution resolution = new SupportResolution(ticket, currentActor, message);
         ticket.close(resolution);
         tickets.remove(ticket);
-        System.out.println("Ticket was resolved successfully (hopefully): \nREASON:" + resolution.getMessage());
+        System.out.println("Ticket was resolved successfully (hopefully): \nREASON:" + resolution.message());
         return resolution;
     }
 

@@ -1,20 +1,12 @@
 package org.example;
 
+import enums.OrderStatus;
+import exceptions.ExpiredFoodException;
+import models.*;
+import services.*;
+
 import java.math.BigDecimal;
 import java.util.*;
-
-import enums.OrderStatus;
-import models.*;
-import exceptions.ExpiredFoodException;
-import services.CartOperations;
-import services.CartService;
-import services.DeliveryAssigner;
-import services.DeliveryService;
-import services.OrderService;
-import services.PaymentProcessor;
-import services.PaymentService;
-import services.SupportService;
-import services.TicketResolver;
 
 public class Main {
 
@@ -82,7 +74,7 @@ public class Main {
             System.out.println("first addres in set: " + firstAddresInList);
         }
 
-        if (!!addressCustomerMap.isEmpty()) {
+        if (addressCustomerMap.isEmpty()) {
             Map.Entry<Address, Customer> firstPair = addressCustomerMap.entrySet().iterator().next();
             System.out.println("first pair's key: " + firstPair.getKey());
             System.out.println("first pair in map: " + firstPair.getValue().getName());

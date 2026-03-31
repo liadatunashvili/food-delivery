@@ -1,16 +1,12 @@
 package models;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Collections;
+import java.util.Map;
 
 public class Order {
 
-    public enum Status {
-        CREATED, PAID, CANCELLED
-    }
-
     private static int counter;
-
     private final int id;
     private final Customer customer;
     private final Map<Food, Integer> items;
@@ -19,7 +15,6 @@ public class Order {
     private Invoice invoice;
     private OrderPlaces deliveryPlace;
     private Status status;
-
     public Order(Customer customer, Map<Food, Integer> items, BigDecimal total) {
         this.id = ++counter;
         this.customer = customer;
@@ -78,5 +73,9 @@ public class Order {
 
     public void cancel() {
         this.status = Status.CANCELLED;
+    }
+
+    public enum Status {
+        CREATED, PAID, CANCELLED
     }
 }

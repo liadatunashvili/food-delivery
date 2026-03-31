@@ -8,10 +8,10 @@ import java.util.Objects;
 
 public class Food {
 
+    private final LocalDate creationDate;
     private String name;
     private BigDecimal foodPrice;
     private int expiration;
-    private final LocalDate creationDate;
 
     public Food(String name, BigDecimal foodPrice, int expiration) throws ExpiredFoodException {
         this.name = name;
@@ -39,12 +39,12 @@ public class Food {
         return name;
     }
 
-    public BigDecimal getFoodPrice() {
-        return foodPrice;
-    }
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    public BigDecimal getFoodPrice() {
+        return foodPrice;
     }
 
     public void setFoodprice(BigDecimal foodPrice) {
@@ -67,6 +67,7 @@ public class Food {
     public int hashCode() {
         return Objects.hash(name, foodPrice, expiration, creationDate);
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -76,9 +77,9 @@ public class Food {
         if (getClass() != obj.getClass())
             return false;
         Food other = (Food) obj;
-        return Objects.equals(name, other.name) && 
-               Objects.equals(foodPrice, other.foodPrice) &&
-               Objects.equals(expiration, other.expiration) &&
-               Objects.equals(creationDate, other.creationDate);
+        return Objects.equals(name, other.name) &&
+                Objects.equals(foodPrice, other.foodPrice) &&
+                Objects.equals(expiration, other.expiration) &&
+                Objects.equals(creationDate, other.creationDate);
     }
 }

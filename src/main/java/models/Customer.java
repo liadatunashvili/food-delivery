@@ -1,18 +1,17 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Customer extends ConsumerProfile {
 
     private static int counter;
-    private Address deliveryAddress;
     private final Cart cart;
-    private int customerID;
+    private Address deliveryAddress;
+    private final int customerID;
     private List<Order> orders = new ArrayList<>();
-    private List<Invoice> invoices = new ArrayList<>();
-    private List<Support> supportTickets = new ArrayList<>();
+    private final List<Invoice> invoices = new ArrayList<>();
+    private final List<Support> supportTickets = new ArrayList<>();
 
 
     public Customer(String name, String email, String number, String hashedPassword, String address) {
@@ -78,13 +77,12 @@ public class Customer extends ConsumerProfile {
         return deliveryAddress;
     }
 
-    public void setDeliveryAddress(String city, String street, String details) {
-        this.deliveryAddress = new Address(city, street, details);
-    }
-
-
     public void setDeliveryAddress(Address deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
+    }
+
+    public void setDeliveryAddress(String city, String street, String details) {
+        this.deliveryAddress = new Address(city, street, details);
     }
 
     public int getCustomerID() {

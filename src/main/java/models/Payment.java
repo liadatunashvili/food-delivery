@@ -5,14 +5,8 @@ import java.util.Objects;
 
 public class Payment extends FinantialRecord {
 
-    public enum Method {
-        CASH,
-        CARD
-    }
-
     private final Method method;
     private boolean success;
-
     public Payment(Order order, BigDecimal amount, Method method) {
         super(order, amount);
         this.method = method;
@@ -61,5 +55,10 @@ public class Payment extends FinantialRecord {
     @Override
     public int hashCode() {
         return Objects.hash(order, amount, method, success);
+    }
+
+    public enum Method {
+        CASH,
+        CARD
     }
 }

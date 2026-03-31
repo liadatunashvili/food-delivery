@@ -1,12 +1,12 @@
 package services;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import exceptions.InvalidAddressException;
 import models.DeliveryPerson;
 import models.Order;
 import models.OrderPlaces;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class DeliveryService implements DeliveryAssigner {
 

@@ -2,17 +2,11 @@ package models;
 
 public class Support {
 
-    public enum Status {
-        OPEN,
-        CLOSED
-    }
-
     private final Customer customer;
     private final Order relatedOrder;
     private final String message;
     private Status status = Status.OPEN;
     private SupportResolution resolution;
-
     public Support(Customer customer, String message) {
         this(customer, null, message);
     }
@@ -54,5 +48,10 @@ public class Support {
 
     public void close() {
         this.status = Status.CLOSED;
+    }
+
+    public enum Status {
+        OPEN,
+        CLOSED
     }
 }

@@ -58,14 +58,14 @@ public class OrderPlaces extends LocationInformation {
         return address;
     }
 
-    public void setAddress(String city, String street, String details) {
-        this.address = new Address(city, street, details);
-        this.orderLocation = this.address.fullAddress();
-    }
-
     public void setAddress(Address address) {
         this.address = address;
         this.orderLocation = address.fullAddress();
+    }
+
+    public void setAddress(String city, String street, String details) {
+        this.address = new Address(city, street, details);
+        this.orderLocation = this.address.fullAddress();
     }
 
     public String getPlaceName() {
@@ -100,8 +100,8 @@ public class OrderPlaces extends LocationInformation {
         if (getClass() != obj.getClass())
             return false;
         OrderPlaces other = (OrderPlaces) obj;
-        return Objects.equals(address, other.address) && 
-               Objects.equals(orderLocation, other.orderLocation) &&
-               Objects.equals(placeName, other.placeName);
+        return Objects.equals(address, other.address) &&
+                Objects.equals(orderLocation, other.orderLocation) &&
+                Objects.equals(placeName, other.placeName);
     }
 }
