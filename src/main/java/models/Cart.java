@@ -1,6 +1,6 @@
 package models;
 
-import Exceptions.EmptyCartException;
+import exceptions.EmptyCartException;
 
 import java.util.ArrayList;
 import java.util.List;

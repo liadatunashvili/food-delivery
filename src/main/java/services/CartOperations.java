@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import models.Food;
+import models.customLambda;
 
 public interface CartOperations {
 
@@ -11,6 +12,11 @@ public interface CartOperations {
 
     void removeItem(Food food);
 
+    public ArrayList<Food> getFilteredItems(customLambda.FoodChecker filter);
+
+    public BigDecimal calculateDiscount(customLambda.FoodDiscount discount, double discountPercent);
+
+    public void displayCart(customLambda.FoodFormatter formatter);
 
     ArrayList<Food> viewItemsList();
 

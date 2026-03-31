@@ -3,9 +3,9 @@ package org.example;
 import java.math.BigDecimal;
 import java.util.*;
 
-import Enums.OrderStatus;
+import enums.OrderStatus;
 import models.*;
-import Exceptions.ExpiredFoodException;
+import exceptions.ExpiredFoodException;
 import services.CartOperations;
 import services.CartService;
 import services.DeliveryAssigner;
@@ -158,6 +158,24 @@ public class Main {
 
         customLambda.FoodChecker isExpiringSoon = food -> food.getExpiration() < 3;
         System.out.println("is it  expiring ? " + isExpiringSoon.check(burger));
+
+        //NEW CART METHOD WITH FUNCTIONS
+        java.util.ArrayList<Food> expiringItems = cartService.getFilteredItems(isExpiringSoon);
+        System.out.println("Expiring items in cart: " + expiringItems.size());
+        for (Food f : expiringItems) {
+            System.out.println(" - " + f.getName() + " expires in " + f.getExpiration() + " days");
+        }
+
+        BigDecimal totalAfterDiscount = cartService.calculateDiscount(discount, 10);
+        System.out.println("Total cart price after 10% discount: " + totalAfterDiscount);
+
+        customLambda.FoodFormatter printingFormatter = food -> {
+            String s = "Cart item: " + food.getName() + " - " + food.getFoodPrice();
+            System.out.println(s);
+            return s;
+        };
+        System.out.println("Displaying cart with displayCart(formatter):");
+        cartService.displayCart(printingFormatter);
 
         Runnable r = () -> System.out.println("executed");
         r.run();

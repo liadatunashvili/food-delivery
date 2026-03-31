@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import models.Cart;
 import models.Food;
+import models.customLambda;
 
 public class CartService implements CartOperations {
 
@@ -21,6 +22,31 @@ public class CartService implements CartOperations {
 
     public void removeItem(Food food) {
         cart.removeFromCart(food);
+    }
+
+    public ArrayList<Food> getFilteredItems(customLambda.FoodChecker filter) {
+        ArrayList<Food> filteredItems = new ArrayList<>();
+        for (Food food : viewItemsList()) {
+            if (filter.check(food)) {
+                filteredItems.add(food);
+            }
+        }
+        return filteredItems;
+    }
+
+    public BigDecimal calculateDiscount(customLambda.FoodDiscount discount, double discountPercent) {
+        BigDecimal total = BigDecimal.ZERO;
+        for (Food foodItem : viewItemsList()) {
+            double discounted = discount.applyDiscount(foodItem, discountPercent);
+            total = total.add(BigDecimal.valueOf(discounted));
+        }
+        return total;
+    }
+
+    public void displayCart(customLambda.FoodFormatter formatter) {
+        for (Food food : viewItemsList()) {
+            formatter.format(food);
+        }
     }
 
     @Override
