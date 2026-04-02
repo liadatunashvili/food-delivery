@@ -1,5 +1,6 @@
 package org.example;
 
+import enums.FoodCategory;
 import enums.OrderStatus;
 import exceptions.ExpiredFoodException;
 import models.*;
@@ -101,11 +102,12 @@ public class Main {
         deliveryService.addDeliveryPerson(courier1);
         deliveryService.addDeliveryPerson(courier2);
 
-        burger = new Food("Burger", BigDecimal.valueOf(8.50), 2);
+        burger = new Food("Burger", BigDecimal.valueOf(8.50), 2, FoodCategory.BURGER);
         Food fries = new Food();
         fries.setName("Fries");
         fries.setFoodprice(BigDecimal.valueOf(3.00));
         fries.setExpiration(1);
+        fries.setCategory(FoodCategory.FRIES);
 
         // cart operations
         cartService.addItem(burger);
@@ -141,14 +143,14 @@ public class Main {
         deliveryAssigner.assignDelivery(order, null, dropOff);
 
         //lambdazz
-        customLambda.FoodDiscount discount = (food, percent) -> food.getFoodPrice().doubleValue() * (1 - percent / 100);
+        CustomLambda.FoodDiscount discount = (food, percent) -> food.getFoodPrice().doubleValue() * (1 - percent / 100);
         double discounted = discount.applyDiscount(burger, 10);
         System.out.println("discounted price: " + discounted);
 
-        customLambda.FoodFormatter formatter = food -> "Food: " + food.getName() + ", price: " + food.getFoodPrice();
+        CustomLambda.FoodFormatter formatter = food -> "Food: " + food.getName() + ", price: " + food.getFoodPrice();
         System.out.println(formatter.format(burger));
 
-        customLambda.FoodChecker isExpiringSoon = food -> food.getExpiration() < 3;
+        CustomLambda.FoodChecker isExpiringSoon = food -> food.getExpiration() < 3;
         System.out.println("is it  expiring ? " + isExpiringSoon.check(burger));
 
         //NEW CART METHOD WITH FUNCTIONS
@@ -161,7 +163,7 @@ public class Main {
         BigDecimal totalAfterDiscount = cartService.calculateDiscount(discount, 10);
         System.out.println("Total cart price after 10% discount: " + totalAfterDiscount);
 
-        customLambda.FoodFormatter printingFormatter = food -> {
+        CustomLambda.FoodFormatter printingFormatter = food -> {
             String s = "Cart item: " + food.getName() + " - " + food.getFoodPrice();
             System.out.println(s);
             return s;
@@ -177,6 +179,17 @@ public class Main {
 
         System.out.println(OrderStatus.PAID.getDescription());
 
+        // food cat
+        System.out.println("Burger category: " + burger.getCategory().getCategory());
+        System.out.println("Fries category: " + fries.getCategory().getCategory());
+
+        // user role
+        System.out.println("Customer role: " + customer.getUserRole().getLabel());
+        System.out.println("Courier role: " + courier1.getUserRole().getLabel());
+
+        // payment type
+        System.out.println("Payment type: " + payment.getPaymentType().getType());
+
 
         try (SupportService supportService = new SupportService()) {
             TicketResolver ticketResolver = supportService;
@@ -189,6 +202,7 @@ public class Main {
 
             supportService.makeComplaint(customer, order, "My fries were cold :(");
             System.out.println("Open tickets: " + supportService.getTickets().size());
+            System.out.println("Ticket type: " + supportService.getTickets().get(0).getType().getKind());
             System.out.println("Customer invoices: " + customer.getInvoices().size());
             System.out.println("Customer support history: " + customer.getSupportTickets().size());
 

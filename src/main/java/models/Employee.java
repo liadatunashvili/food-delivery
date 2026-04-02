@@ -1,5 +1,6 @@
 package models;
 
+import enums.UserRole;
 import java.math.BigDecimal;
 
 public class Employee extends WorkerProfile {
@@ -26,5 +27,9 @@ public class Employee extends WorkerProfile {
     @Override
     public String getRoleName() {
         return "Employee";
+    }
+
+    public UserRole getUserRole() {
+        return UserRole.ADMIN;
     }
 }

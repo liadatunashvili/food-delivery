@@ -1,5 +1,6 @@
 package models;
 
+import enums.UserRole;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,6 +44,10 @@ public class DeliveryPerson extends Employee {
     @Override
     public String getRoleName() {
         return "Delivery Person";
+    }
+
+    public UserRole getUserRole() {
+        return UserRole.COURIER;
     }
 
     public Set<OrderPlaces> getOrderPlaces() {

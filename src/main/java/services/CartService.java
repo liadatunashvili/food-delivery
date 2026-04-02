@@ -2,7 +2,7 @@ package services;
 
 import models.Cart;
 import models.Food;
-import models.customLambda;
+import models.CustomLambda;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class CartService implements CartOperations {
         cart.removeFromCart(food);
     }
 
-    public ArrayList<Food> getFilteredItems(customLambda.FoodChecker filter) {
+    public ArrayList<Food> getFilteredItems(CustomLambda.FoodChecker filter) {
         ArrayList<Food> filteredItems = new ArrayList<>();
         for (Food food : viewItemsList()) {
             if (filter.check(food)) {
@@ -34,7 +34,7 @@ public class CartService implements CartOperations {
         return filteredItems;
     }
 
-    public BigDecimal calculateDiscount(customLambda.FoodDiscount discount, double discountPercent) {
+    public BigDecimal calculateDiscount(CustomLambda.FoodDiscount discount, double discountPercent) {
         BigDecimal total = BigDecimal.ZERO;
         for (Food foodItem : viewItemsList()) {
             double discounted = discount.applyDiscount(foodItem, discountPercent);
@@ -43,7 +43,7 @@ public class CartService implements CartOperations {
         return total;
     }
 
-    public void displayCart(customLambda.FoodFormatter formatter) {
+    public void displayCart(CustomLambda.FoodFormatter formatter) {
         for (Food food : viewItemsList()) {
             formatter.format(food);
         }

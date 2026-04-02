@@ -1,5 +1,6 @@
 package models;
 
+import enums.UserRole;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,10 @@ public class Customer extends ConsumerProfile {
     @Override
     public String getRoleName() {
         return "Customer";
+    }
+
+    public UserRole getUserRole() {
+        return UserRole.CUSTOMER;
     }
 
     public Cart getCart() {

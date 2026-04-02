@@ -1,20 +1,28 @@
 package models;
 
+import enums.PaymentType;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Payment extends FinantialRecord {
 
     private final Method method;
+    private final PaymentType paymentType;
     private boolean success;
+
     public Payment(Order order, BigDecimal amount, Method method) {
         super(order, amount);
         this.method = method;
+        this.paymentType = (method == Method.CARD) ? PaymentType.CARD : PaymentType.CASH;
         this.success = false;
     }
 
     public Method getMethod() {
         return method;
+    }
+
+    public PaymentType getPaymentType() {
+        return paymentType;
     }
 
     @Override

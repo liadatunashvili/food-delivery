@@ -1,6 +1,6 @@
 package models;
 
-public class customLambda {
+public class CustomLambda {
     @FunctionalInterface
     public interface FoodDiscount {
         double applyDiscount(Food food, double discountPercent);

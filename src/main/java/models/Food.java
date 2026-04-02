@@ -1,5 +1,6 @@
 package models;
 
+import enums.FoodCategory;
 import exceptions.ExpiredFoodException;
 
 import java.math.BigDecimal;
@@ -12,12 +13,18 @@ public class Food {
     private String name;
     private BigDecimal foodPrice;
     private int expiration;
+    private FoodCategory category;
 
     public Food(String name, BigDecimal foodPrice, int expiration) throws ExpiredFoodException {
         this.name = name;
         this.foodPrice = foodPrice;
         this.expiration = expiration;
         this.creationDate = LocalDate.now();
+    }
+
+    public Food(String name, BigDecimal foodPrice, int expiration, FoodCategory category) throws ExpiredFoodException {
+        this(name, foodPrice, expiration);
+        this.category = category;
     }
 
     public Food() throws ExpiredFoodException {
@@ -61,6 +68,14 @@ public class Food {
 
     public LocalDate getCreationDate() {
         return creationDate;
+    }
+
+    public FoodCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(FoodCategory category) {
+        this.category = category;
     }
 
     @Override
