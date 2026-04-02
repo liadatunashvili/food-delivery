@@ -15,6 +15,7 @@ public class Order {
     private Invoice invoice;
     private OrderPlaces deliveryPlace;
     private Status status;
+
     public Order(Customer customer, Map<Food, Integer> items, BigDecimal total) {
         this.id = ++counter;
         this.customer = customer;

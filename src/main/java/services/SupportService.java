@@ -8,8 +8,8 @@ import java.util.List;
 
 public class SupportService implements TicketResolver, AutoCloseable {
 
-    private RoleDescribable currentActor;
     private final List<Support> tickets = new ArrayList<>();
+    private RoleDescribable currentActor;
 
     public List<Support> getTickets() {
         return tickets;

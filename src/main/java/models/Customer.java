@@ -1,6 +1,7 @@
 package models;
 
 import enums.UserRole;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,11 +9,11 @@ public class Customer extends ConsumerProfile {
 
     private static int counter;
     private final Cart cart;
-    private Address deliveryAddress;
     private final int customerID;
-    private List<Order> orders = new ArrayList<>();
     private final List<Invoice> invoices = new ArrayList<>();
     private final List<Support> supportTickets = new ArrayList<>();
+    private Address deliveryAddress;
+    private List<Order> orders = new ArrayList<>();
 
 
     public Customer(String name, String email, String number, String hashedPassword, String address) {

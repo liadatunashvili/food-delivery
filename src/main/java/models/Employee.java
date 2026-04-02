@@ -1,6 +1,7 @@
 package models;
 
 import enums.UserRole;
+
 import java.math.BigDecimal;
 
 public class Employee extends WorkerProfile {

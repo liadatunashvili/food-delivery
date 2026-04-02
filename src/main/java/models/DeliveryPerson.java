@@ -1,13 +1,14 @@
 package models;
 
 import enums.UserRole;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class DeliveryPerson extends Employee {
 
-    private Address destinationAddress;
     private final Set<OrderPlaces> orderPlaces;
+    private Address destinationAddress;
 
     public DeliveryPerson(String name, String email, String number, String hashedPassword, String destinationAddress) {
         super(name, email, number, hashedPassword);

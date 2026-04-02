@@ -1,10 +1,6 @@
 package services;
 
-import models.Cart;
-import models.Food;
-import models.FoodChecker;
-import models.FoodDiscount;
-import models.FoodFormatter;
+import models.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
