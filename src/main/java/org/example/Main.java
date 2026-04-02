@@ -4,6 +4,9 @@ import enums.FoodCategory;
 import enums.OrderStatus;
 import exceptions.ExpiredFoodException;
 import models.*;
+import models.FoodChecker;
+import models.FoodDiscount;
+import models.FoodFormatter;
 import services.*;
 
 import java.math.BigDecimal;
@@ -143,14 +146,14 @@ public class Main {
         deliveryAssigner.assignDelivery(order, null, dropOff);
 
         //lambdazz
-        CustomLambda.FoodDiscount discount = (food, percent) -> food.getFoodPrice().doubleValue() * (1 - percent / 100);
+        FoodDiscount discount = (food, percent) -> food.getFoodPrice().doubleValue() * (1 - percent / 100);
         double discounted = discount.applyDiscount(burger, 10);
         System.out.println("discounted price: " + discounted);
 
-        CustomLambda.FoodFormatter formatter = food -> "Food: " + food.getName() + ", price: " + food.getFoodPrice();
+        FoodFormatter formatter = food -> "Food: " + food.getName() + ", price: " + food.getFoodPrice();
         System.out.println(formatter.format(burger));
 
-        CustomLambda.FoodChecker isExpiringSoon = food -> food.getExpiration() < 3;
+        FoodChecker isExpiringSoon = food -> food.getExpiration() < 3;
         System.out.println("is it  expiring ? " + isExpiringSoon.check(burger));
 
         //NEW CART METHOD WITH FUNCTIONS
@@ -163,7 +166,7 @@ public class Main {
         BigDecimal totalAfterDiscount = cartService.calculateDiscount(discount, 10);
         System.out.println("Total cart price after 10% discount: " + totalAfterDiscount);
 
-        CustomLambda.FoodFormatter printingFormatter = food -> {
+        FoodFormatter printingFormatter = food -> {
             String s = "Cart item: " + food.getName() + " - " + food.getFoodPrice();
             System.out.println(s);
             return s;

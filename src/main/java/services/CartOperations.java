@@ -1,7 +1,9 @@
 package services;
 
 import models.Food;
-import models.CustomLambda;
+import models.FoodChecker;
+import models.FoodDiscount;
+import models.FoodFormatter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -12,14 +14,13 @@ public interface CartOperations {
 
     void removeItem(Food food);
 
-    ArrayList<Food> getFilteredItems(CustomLambda.FoodChecker filter);
+    ArrayList<Food> getFilteredItems(FoodChecker filter);
 
-    BigDecimal calculateDiscount(CustomLambda.FoodDiscount discount, double discountPercent);
+    BigDecimal calculateDiscount(FoodDiscount discount, double discountPercent);
 
-    void displayCart(CustomLambda.FoodFormatter formatter);
+    void displayCart(FoodFormatter formatter);
 
     ArrayList<Food> viewItemsList();
 
     BigDecimal calculateTotal();
 }
-
