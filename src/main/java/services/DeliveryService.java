@@ -7,6 +7,7 @@ import models.OrderPlaces;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class DeliveryService implements DeliveryAssigner {
 
@@ -31,7 +32,9 @@ public final class DeliveryService implements DeliveryAssigner {
         }
         DeliveryPerson assignee = deliveryPerson;
         if (assignee == null && !deliveryPeople.isEmpty()) {
-            assignee = deliveryPeople.get(deliveryPeople.size() - 1);
+            assignee = deliveryPeople.stream()
+                    .reduce((first, second) -> second)
+                    .orElse(null);
         }
         if (assignee == null) {
             System.out.println("No delivery avail " + order.getId());

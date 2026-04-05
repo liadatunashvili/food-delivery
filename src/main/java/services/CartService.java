@@ -23,28 +23,21 @@ public class CartService implements CartOperations {
     }
 
     public ArrayList<Food> getFilteredItems(FoodChecker filter) {
-        ArrayList<Food> filteredItems = new ArrayList<>();
-        for (Food food : viewItemsList()) {
-            if (filter.check(food)) {
-                filteredItems.add(food);
-            }
-        }
-        return filteredItems;
+        return viewItemsList().stream()
+                .filter(filter::check)
+                .collect(java.util.stream.Collectors.toCollection(ArrayList::new));
     }
 
     public BigDecimal calculateDiscount(FoodDiscount discount, double discountPercent) {
-        BigDecimal total = BigDecimal.ZERO;
-        for (Food foodItem : viewItemsList()) {
-            double discounted = discount.applyDiscount(foodItem, discountPercent);
-            total = total.add(BigDecimal.valueOf(discounted));
-        }
-        return total;
+        return viewItemsList().stream()
+                .map(foodItem -> discount.applyDiscount(foodItem, discountPercent))
+                .map(BigDecimal::valueOf)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public void displayCart(FoodFormatter formatter) {
-        for (Food food : viewItemsList()) {
-            formatter.format(food);
-        }
+        viewItemsList()
+                .forEach(formatter::format);
     }
 
     @Override
@@ -54,10 +47,8 @@ public class CartService implements CartOperations {
 
 
     public BigDecimal calculateTotal() {
-        BigDecimal total = BigDecimal.ZERO;
-        for (Food item : cart.getCartItems()) {
-            total = total.add(item.getFoodPrice());
-        }
-        return total;
+        return cart.getCartItems().stream()
+                .map(Food::getFoodPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

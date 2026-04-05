@@ -5,6 +5,7 @@ import exceptions.InvalidPaymentException;
 import models.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,12 +25,28 @@ public class OrderService {
     public Order createOrder(Customer customer) throws ExpiredFoodException {
         List<Food> items = customer.getCart().getCartItems();
 
-        for (Food item : items) {
-            if (item.isExpired()) {
+        try {
+            List<Food> expiredItems = items.stream()
+                    .filter(item -> {
+                        try {
+                            return item.isExpired();
+                        } catch (ExpiredFoodException e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .toList();
+
+            new ArrayList<>(expiredItems).forEach(item -> {
                 System.out.println("Cart contains expired food removing from cart");
                 cartService.removeItem(item);
+            });
+        } catch (RuntimeException e) {
+            if (e.getCause() instanceof ExpiredFoodException expiredFoodException) {
+                throw expiredFoodException;
             }
+            throw e;
         }
+
         BigDecimal total = cartService.calculateTotal();
         Order order = new Order(customer, (Map<Food, Integer>) customer.getCart().getCartItems(), total);
         customer.addOrder(order);

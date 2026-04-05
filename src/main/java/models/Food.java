@@ -1,5 +1,6 @@
 package models;
 
+import annotations.ReflectInfo;
 import enums.FoodCategory;
 import exceptions.ExpiredFoodException;
 
@@ -7,6 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@ReflectInfo(owner = "catalog-team", purpose = "reflection metadata")
 public class Food {
 
     private final LocalDate creationDate;
