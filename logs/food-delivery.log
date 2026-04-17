@@ -1,0 +1,113 @@
+2026-04-17 14:02:35.339 [main] INFO  Main - Set size: 2
+2026-04-17 14:02:35.343 [main] INFO  Main - List is empty? true
+2026-04-17 14:02:35.349 [main] INFO  Main - List size after adding: 2
+2026-04-17 14:02:35.349 [main] INFO  Main - First food in list: null
+2026-04-17 14:02:35.350 [main] INFO  Main - List size after removing burger: 1
+2026-04-17 14:02:35.350 [main] INFO  Main - Address set is empty? false
+2026-04-17 14:02:35.350 [main] INFO  Main - Address set size after removal: 1
+2026-04-17 14:02:35.350 [main] INFO  Main - Map size after put: 1
+2026-04-17 14:02:35.350 [main] INFO  Main - Customer found by address: Lika
+2026-04-17 14:02:35.350 [main] INFO  Main - Map size after removal: 0
+2026-04-17 14:02:35.351 [main] INFO  Main - Map is empty? true
+2026-04-17 14:02:35.351 [main] INFO  Main - iteration through customer invoice
+2026-04-17 14:02:35.352 [main] INFO  Main - iteration though addresses
+2026-04-17 14:02:35.358 [main] INFO  Main - Tbilisi, Ortaachala, Building 5, Apt 12
+2026-04-17 14:02:35.359 [main] INFO  Main - iteration through customer address
+2026-04-17 14:02:35.360 [main] INFO  Main - first addres in set: Tbilisi, Ortaachala, Building 5, Apt 12
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Set size: 2
+2026-04-17 14:31:17 [main] INFO  org.example.Main - List is empty? true
+2026-04-17 14:31:17 [main] INFO  org.example.Main - List size after adding: 2
+2026-04-17 14:31:17 [main] INFO  org.example.Main - First food in list: null
+2026-04-17 14:31:17 [main] INFO  org.example.Main - List size after removing burger: 1
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Address set is empty? false
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Address set size after removal: 1
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Map size after put: 1
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Customer found by address: Lika
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Map size after removal: 0
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Map is empty? true
+2026-04-17 14:31:17 [main] INFO  org.example.Main - iteration through customer invoice
+2026-04-17 14:31:17 [main] INFO  org.example.Main - iteration though addresses
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Tbilisi, Ortaachala, Building 5, Apt 12
+2026-04-17 14:31:17 [main] INFO  org.example.Main - iteration through customer address
+2026-04-17 14:31:17 [main] INFO  org.example.Main - first addres in set: Tbilisi, Ortaachala, Building 5, Apt 12
+2026-04-17 14:31:17 [main] INFO  org.example.Main - address customer map is empty
+2026-04-17 14:31:17 [main] INFO  org.example.Main - What is in box: null
+2026-04-17 14:31:17 [main] INFO  org.example.Main - what is in box now: null
+2026-04-17 14:31:17 [main] INFO  org.example.Main - pair: Pair{key= Tbilisi, Ortachala, Building 5, Apt 12, value= models.Customer@38c6f217}
+2026-04-17 14:31:17 [main] INFO  org.example.Main - CartService TOTAL: 11.5
+2026-04-17 14:31:17 [main] INFO  org.example.Main - CURRENT MEMBER: Customer
+2026-04-17 14:31:17 [main] INFO  org.example.Main - MEMBER STATE: Customer ON UserIS ACTIVE: true
+2026-04-17 14:31:17 [main] INFO  services.OrderService - Cart contains expired food removing from cart
+2026-04-17 14:31:17 [main] INFO  models.Cart - cart is empty
+2026-04-17 14:31:17 [main] INFO  services.OrderService - Cart contains expired food removing from cart
+2026-04-17 14:31:17 [main] INFO  models.Cart - cart is empty
+2026-04-17 14:31:17 [main] INFO  org.example.Main - ORDER CREATED: ORDER 1
+2026-04-17 14:31:17 [main] INFO  org.example.Main - GOOD PAYMENT: true  :  0
+2026-04-17 14:31:17 [main] INFO  org.example.Main - PAYMENT RECORD: Payment for order #1 amount=0 method=CARD success=true
+2026-04-17 14:31:17 [main] INFO  org.example.Main - LATEST RECORD AFTER PAYMENT: Payment for order #1 amount=0 method=CARD success=true
+2026-04-17 14:31:17 [main] INFO  org.example.Main - THIS IS THE INVOICE:Invoice #0
+ | Order #1
+ | Customer: Lika
+ | Total: 0
+ | Paid: true
+ | Issued at: 2026-04-17T14:31:17.510200290
+ | Signed by: FoodDelivery Company 
+2026-04-17 14:31:17 [main] INFO  org.example.Main - INVOICE RECORD: Invoice #0 for order #1 amount=0
+2026-04-17 14:31:17 [main] INFO  org.example.Main - LATEST RECORD AFTER INVOICE: Invoice #0 for order #1 amount=0
+2026-04-17 14:31:17 [main] INFO  services.DeliveryService - Order 1 assigned to Bob for Lika's place
+2026-04-17 14:31:17 [main] INFO  services.DeliveryService - Order 1 assigned to Bob for Alice's Place
+2026-04-17 14:31:17 [main] INFO  org.example.Main - discounted price: 7.65
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Food: Burger, price: 8.5
+2026-04-17 14:31:17 [main] INFO  org.example.Main - is it  expiring ? true
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Expiring items in cart: 0
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Total cart price after 10% discount: 0
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Cart categories snapshot: Burger=burger, Fries=fries
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Displaying cart with displayCart(formatter):
+2026-04-17 14:31:17 [main] INFO  org.example.Main - executed
+2026-04-17 14:31:17 [main] INFO  org.example.Main - food summary: FoodSummary[name=Burger, price=8.5, expiration=2]
+2026-04-17 14:31:17 [main] INFO  org.example.Main - order paid
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Burger category: burger
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Fries category: fries
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Customer role: customer
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Courier role: DeliveryPerson
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Payment type: card
+2026-04-17 14:31:17 [main] INFO  org.example.Main -  refleciton 
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Field: private FoodCategory category
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Field: private final LocalDate creationDate
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Field: private int expiration
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Field: private BigDecimal foodPrice
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Field: private String name
+2026-04-17 14:31:17 [main] INFO  org.example.Main - CTOR: public models.Food()
+2026-04-17 14:31:17 [main] INFO  org.example.Main - CTOR: public models.Food(String arg0, BigDecimal arg1, int arg2)
+2026-04-17 14:31:17 [main] INFO  org.example.Main - CTOR: public models.Food(String arg0, BigDecimal arg1, int arg2, FoodCategory arg3)
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Method: public boolean equals(Object arg0)
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Method: public FoodCategory getCategory()
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Method: public LocalDate getCreationDate()
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Method: public int getExpiration()
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Method: public BigDecimal getFoodPrice()
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Method: public String getName()
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Method: public int hashCode()
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Method: public boolean isExpired()
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Method: public void setCategory(FoodCategory arg0)
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Method: public void setExpiration(int arg0)
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Method: public void setFoodprice(BigDecimal arg0)
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Method: public void setName(String arg0)
+2026-04-17 14:31:17 [main] INFO  org.example.Main - annotation -> owner=catalog-team, purpose=reflection metadata
+2026-04-17 14:31:17 [main] INFO  org.example.Main - reflected object -> name=reflection Burger, price=5.55
+2026-04-17 14:31:17 [main] INFO  org.example.Main - CURRENT ACTOR: Customer
+2026-04-17 14:31:17 [main] INFO  org.example.Main - CURRENT ACTOR: Delivery Person
+2026-04-17 14:31:17 [main] INFO  services.SupportService - Thank you, support will answer shortly
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Open tickets: 1
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Ticket type: Complaint
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Customer invoices: 1
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Customer support history: 1
+2026-04-17 14:31:17 [main] INFO  services.SupportService - Ticket was resolved successfully (hopefully): 
+REASON:No problem, we'll send a fresh portion.
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Resolved by: Dato
+2026-04-17 14:31:17 [main] INFO  org.example.Main - Open tickets: 0
+2026-04-17 15:27:53 [main] INFO  BookAnalysis - BOOK: book.txt
+2026-04-17 15:27:53 [main] INFO  BookAnalysis - Unique words: 4177
+2026-04-17 15:28:29 [main] INFO  BookAnalysis - BOOK: book.txt
+2026-04-17 15:28:29 [main] INFO  BookAnalysis - Unique words: 4177
+2026-04-17 15:29:12 [main] INFO  BookAnalysis - BOOK: book.txt
+2026-04-17 15:29:12 [main] INFO  BookAnalysis - Unique words: 4177

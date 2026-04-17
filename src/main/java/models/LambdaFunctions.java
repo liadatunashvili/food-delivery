@@ -1,10 +1,15 @@
 package models;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 import java.util.function.*;
 
 
 public class LambdaFunctions {
+    private static final Logger logger = LogManager.getLogger(LambdaFunctions.class);
+
 
     public static void processCart(List<Food> cartItems) {
 
@@ -14,7 +19,7 @@ public class LambdaFunctions {
         Function<Food, String> foodName = Food::getName;
         List<String> names = ExpensiveItems.stream().map(foodName).toList();
 
-        Consumer<String> printName = System.out::println;
+        Consumer<String> printName = logger::info;
         names.forEach(printName);
 
         Supplier<Food> defaultFoodSupplier = () -> new Food("default", java.math.BigDecimal.ONE, 1);
@@ -26,7 +31,7 @@ public class LambdaFunctions {
 
         Food combined = combineFood.apply(cartItems.get(0), defaultFood);
 
-        BiConsumer<Food, Food> foodPair = (food1, food2) -> System.out.println("pair: " + food1.getName() + " & " + food2.getName());
+        BiConsumer<Food, Food> foodPair = (food1, food2) -> logger.info("pair: " + food1.getName() + " & " + food2.getName());
         foodPair.accept(cartItems.get(0), defaultFood);
 
     }

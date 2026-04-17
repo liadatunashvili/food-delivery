@@ -42,7 +42,7 @@ public class CartService implements CartOperations {
 
     @Override
     public ArrayList<Food> viewItemsList() {
-        return (ArrayList<Food>) cart.getCartItems();
+        return new ArrayList<>(cart.getCartItems());
     }
 
 

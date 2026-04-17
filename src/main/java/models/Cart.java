@@ -1,11 +1,16 @@
 package models;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import exceptions.EmptyCartException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
+    private static final Logger logger = LogManager.getLogger(Cart.class);
+
 
     private final Customer owner;
 
@@ -42,10 +47,10 @@ public class Cart {
             throw new EmptyCartException();
         }
         if (!cartItems.remove(food)) {
-            System.out.println("could not find that item");
+            logger.info("could not find that item");
         }
 
-        System.out.println("cart is empty");
+        logger.info("cart is empty");
     }
 
 

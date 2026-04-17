@@ -1,5 +1,8 @@
 package services;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import exceptions.InvalidIndexException;
 import models.*;
 
@@ -7,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SupportService implements TicketResolver, AutoCloseable {
+    private static final Logger logger = LogManager.getLogger(SupportService.class);
+
 
     private final List<Support> tickets = new ArrayList<>();
     private RoleDescribable currentActor;
@@ -23,7 +28,7 @@ public class SupportService implements TicketResolver, AutoCloseable {
         Support ticket = new Support(customer, relatedOrder, message);
         tickets.add(ticket);
         customer.addSupportTicket(ticket);
-        System.out.println("Thank you, support will answer shortly");
+        logger.info("Thank you, support will answer shortly");
     }
 
     public SupportResolution resolveTicket(int index, String message) {
@@ -38,7 +43,7 @@ public class SupportService implements TicketResolver, AutoCloseable {
         SupportResolution resolution = new SupportResolution(ticket, resolvedBy != null ? resolvedBy : currentActor, message);
         ticket.close(resolution);
         tickets.remove(index);
-        System.out.println("Ticket was resolved successfully (hopefully): \nREASON:" + resolution.message());
+        logger.info("Ticket was resolved successfully (hopefully): \nREASON:" + resolution.message());
         return resolution;
     }
 
@@ -46,7 +51,7 @@ public class SupportService implements TicketResolver, AutoCloseable {
         SupportResolution resolution = new SupportResolution(ticket, currentActor, message);
         ticket.close(resolution);
         tickets.remove(ticket);
-        System.out.println("Ticket was resolved successfully (hopefully): \nREASON:" + resolution.message());
+        logger.info("Ticket was resolved successfully (hopefully): \nREASON:" + resolution.message());
         return resolution;
     }
 

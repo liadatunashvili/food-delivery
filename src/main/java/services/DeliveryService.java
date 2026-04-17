@@ -1,5 +1,8 @@
 package services;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import exceptions.InvalidAddressException;
 import models.DeliveryPerson;
 import models.Order;
@@ -10,6 +13,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public final class DeliveryService implements DeliveryAssigner {
+    private static final Logger logger = LogManager.getLogger(DeliveryService.class);
+
 
     private List<DeliveryPerson> deliveryPeople = new ArrayList<>();
 
@@ -37,14 +42,14 @@ public final class DeliveryService implements DeliveryAssigner {
                     .orElse(null);
         }
         if (assignee == null) {
-            System.out.println("No delivery avail " + order.getId());
+            logger.info("No delivery avail " + order.getId());
             return;
         }
         location.setOrder(order);
         order.assignDeliveryPlace(location);
         assignee.setDestinationAddress(location.getAddress());
         assignee.addOrder(location);
-        System.out.println("Order " + order.getId() + " assigned to " + assignee.getName() + " for " + location.getPlaceName());
+        logger.info("Order " + order.getId() + " assigned to " + assignee.getName() + " for " + location.getPlaceName());
     }
 
 

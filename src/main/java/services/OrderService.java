@@ -3,13 +3,18 @@ package services;
 import exceptions.ExpiredFoodException;
 import exceptions.InvalidPaymentException;
 import models.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OrderService {
+    private static final Logger logger = LogManager.getLogger(OrderService.class);
+
 
     private final CartOperations cartService;
     private final PaymentProcessor paymentService;
@@ -26,18 +31,16 @@ public class OrderService {
         List<Food> items = customer.getCart().getCartItems();
 
         try {
-            List<Food> expiredItems = items.stream()
-                    .filter(item -> {
-                        try {
-                            return item.isExpired();
-                        } catch (ExpiredFoodException e) {
-                            throw new RuntimeException(e);
-                        }
-                    })
-                    .toList();
+            List<Food> expiredItems = items.stream().filter(item -> {
+                try {
+                    return item.isExpired();
+                } catch (ExpiredFoodException e) {
+                    throw new RuntimeException(e);
+                }
+            }).toList();
 
             new ArrayList<>(expiredItems).forEach(item -> {
-                System.out.println("Cart contains expired food removing from cart");
+                logger.info("Cart contains expired food removing from cart");
                 cartService.removeItem(item);
             });
         } catch (RuntimeException e) {
@@ -48,7 +51,19 @@ public class OrderService {
         }
 
         BigDecimal total = cartService.calculateTotal();
-        Order order = new Order(customer, (Map<Food, Integer>) customer.getCart().getCartItems(), total);
+
+        Map<Food, Integer> foodMap = customer.getCart()
+                .getCartItems()
+                .stream()
+                .collect(
+                        Collectors.groupingBy(
+                                food -> food, Collectors.collectingAndThen(
+                                        Collectors.counting(), Long::intValue
+                                )
+                        )
+                );
+
+        Order order = new Order(customer, foodMap, total);
         customer.addOrder(order);
         customer.getCart().clear();
         return order;
@@ -64,7 +79,7 @@ public class OrderService {
             }
             return payment;
         } catch (InvalidPaymentException e) {
-            System.out.println("Payment failed: " + e.getMessage());
+            logger.warn("Payment failed: " + e.getMessage());
             return null;
 
         }
