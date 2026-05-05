@@ -11,13 +11,17 @@ import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class Main {
 
     private static final Logger logger = LogManager.getLogger(Main.class);
 
-    public static void main(String[] args) throws ExpiredFoodException {
+    public static void main(String[] args) throws ExpiredFoodException, InterruptedException {
         // setup models
         Address customerAddress = new Address("Tbilisi", "Ortachala", "Building 5, Apt 12");
         Customer customer = new Customer("Lika", "likadatvi17@example.com", "+995568332112", "password", customerAddress);
@@ -201,6 +205,9 @@ public class Main {
         // payment type
         logger.info("Payment type: " + payment.getPaymentType().getType());
 
+        runThreadDemo();
+        runConnectionPoolDemo();
+
         //reflection use
         runReflectionDemo();
         try (SupportService supportService = new SupportService()) {
@@ -228,7 +235,91 @@ public class Main {
         } catch (RuntimeException exception) {
             logger.info("Support error: " + exception.getMessage());
         }
+        // COMPLETABLE FUTURE STUFF
+        CompletableFuture<String> cf1 = CompletableFuture.supplyAsync(() -> {
+            logger.info("CF1: fetching order status...");
+            return "DELIVERED";
+        });
+
+        CompletableFuture<String> cf2 = CompletableFuture
+                .supplyAsync(() -> "Burger")
+                .thenApply(name -> {
+                    logger.info("CF2: applying discount label to " + name);
+                    return name + " -10%";
+                });
+
+        CompletableFuture<String> cf3 = CompletableFuture
+                .supplyAsync(() -> "order-42")
+                .thenCompose(orderId -> CompletableFuture.supplyAsync(() -> {
+                    logger.info("CF3: assigning courier for " + orderId);
+                    return "Courier assigned to " + orderId;
+                }));
+
+        CompletableFuture<String> cfPrice = CompletableFuture.supplyAsync(() -> "8.50");
+        CompletableFuture<String> cfItem  = CompletableFuture.supplyAsync(() -> "Burger");
+        CompletableFuture<String> cf4 = cfPrice.thenCombine(cfItem, (price, item) -> {
+            logger.info("CF4: combining price and item");
+            return item + " costs $" + price;
+        });
+
+        CompletableFuture<Void> cf5 = CompletableFuture.allOf(cf1, cf2, cf3, cf4);
+        cf5.join();
+
+        logger.info("CF1 result: {}", cf1.join());
+        logger.info("CF2 result: {}", cf2.join());
+        logger.info("CF3 result: {}", cf3.join());
+        logger.info("CF4 result: {}", cf4.join());
     }
+
+
+    // pool stuff
+    private static void runConnectionPoolDemo() throws InterruptedException {
+        logger.info("CONNECTION POOL START");
+
+        ConnectionPool pool = ConnectionPool.getInstance(5);
+        ExecutorService executor = Executors.newFixedThreadPool(7);
+
+        for (int i = 1; i <= 7; i++) {
+            final int taskId = i;
+            executor.submit(() -> {
+                try {
+                    logger.info("Task-" + taskId + " waiting for connection...");
+                    Connection conn = pool.getConnection();
+
+                    conn.create("order_" + taskId);
+                    logger.info(conn.get(taskId));
+                    conn.update(taskId, "status=processed");
+                    Thread.sleep(200);
+
+                    pool.releaseConnection(conn);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            });
+        }
+
+        executor.shutdown();
+        executor.awaitTermination(10, TimeUnit.SECONDS);
+        logger.info("CONNECTION POOL END");
+    }
+
+
+    private static void runThreadDemo() throws InterruptedException {
+        logger.info("THREAD START");
+
+        // runnable
+        Thread runnableThread = new Thread(new RunnableTask("OrderProcessor"), "runnable-thread");
+        runnableThread.start();
+
+        // thread
+        ThreadTask threadTask = new ThreadTask("PaymentProcessor");
+        threadTask.start();
+
+        runnableThread.join();
+        threadTask.join();
+        logger.info("THREAD END");
+    }
+
     //reflection method
     private static void runReflectionDemo() {
         try {
