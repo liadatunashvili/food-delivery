@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order id="1" status="PAID" createdAt="2026-05-08T10:30:00">
+    <total>11.50</total>
+
+    <customer customerId="101">
+        <name>Lika</name>
+        <email>likadatvi17@gmail.com</email>
+        <phone>+995555555555</phone>
+        <address>
+            <city>Tbilisi</city>
+            <street>gldani</street>
+            <details>Building 5, Apt 12</details>
+        </address>
+    </customer>
+
+    <items>
+        <food>
+            <name>Burger</name>
+            <price>8.50</price>
+            <expiration>2</expiration>
+            <category>BURGER</category>
+            <available>true</available>
+        </food>
+        <food>
+            <name>Fries</name>
+            <price>3.00</price>
+            <expiration>1</expiration>
+            <category>FRIES</category>
+            <available>true</available>
+        </food>
+    </items>
+
+    <payment>
+        <amount>11.50</amount>
+        <method>CARD</method>
+        <success>true</success>
+    </payment>
+</order>
+

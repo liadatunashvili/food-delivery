@@ -1,0 +1,40 @@
+{
+  "id": 1,
+  "status": "PAID",
+  "createdAt": "2026-05-08T10:30:00",
+  "total": 11.50,
+  "customer": {
+    "customerId": 101,
+    "name": "Lika",
+    "email": "likadatvi17@gmail.com",
+    "phone": "+995555555555",
+    "address": {
+      "city": "Tbilisi",
+      "street": "gldani",
+      "details": "Building 5, Apt 12"
+    }
+  },
+  "items": {
+    "items": [
+      {
+        "name": "Burger",
+        "price": 8.50,
+        "expiration": 2,
+        "category": "BURGER",
+        "available": true
+      },
+      {
+        "name": "Fries",
+        "price": 3.00,
+        "expiration": 1,
+        "category": "FRIES",
+        "available": true
+      }
+    ]
+  },
+  "payment": {
+    "amount": 11.50,
+    "method": "CARD",
+    "success": true
+  }
+}
