@@ -318,6 +318,39 @@ public class Main {
         runnableThread.join();
         threadTask.join();
         logger.info("THREAD END");
+
+        logger.info("--- DOM PARSER DEMO ---");
+        XmlValidator validator = new XmlValidator();
+        boolean valid = validator.validate("delivery-data.xml", "delivery-data.xsd");
+        logger.info("XML valid: " + valid);
+
+        Parser parser = new DomParser();
+        Order parsed = parser.parse("delivery-data.xml");
+        if (parsed != null) {
+            logger.info("Parsed order total: " + parsed.getTotal());
+            logger.info("Parsed customer: " + parsed.getCustomer().getName());
+            logger.info("Parsed items count: " + parsed.getItems().size());
+            logger.info("Parsed payment success: " + parsed.getPayment().isSuccess());
+        }
+        logger.info("--- JAXB ---");
+        Parser jaxbParser = new JaxbParser();
+        Order jaxbOrder = jaxbParser.parse("delivery-data.xml");
+        if (jaxbOrder != null) {
+            logger.info("[JaxB] order total: " + jaxbOrder.getTotal());
+            logger.info("[JaxB] customer: " + jaxbOrder.getCustomer().getName());
+            logger.info("[JaxB] items count: " + jaxbOrder.getItems().size());
+            logger.info("[JaxB] payment success: " + jaxbOrder.getPayment().isSuccess());
+        }
+
+        logger.info("--- JACKSON ---");
+        Parser jacksonParser = new JacksonParser();
+        Order jacksonOrder = jacksonParser.parse("delivery-data.json");
+        if (jacksonOrder != null) {
+            logger.info("[Jackson] order total: " + jacksonOrder.getTotal());
+            logger.info("[Jackson] customer: " + jacksonOrder.getCustomer().getName());
+            logger.info("[Jackson] items count: " + jacksonOrder.getItems().size());
+            logger.info("[Jackson] payment success: " + jacksonOrder.getPayment().isSuccess());
+        }
     }
 
     //reflection method
